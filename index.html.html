@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>SURLINK — Peluang Mahasiswa UBB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3170a4; --primary-dark: #245482; --primary-light: #8fb6d8;
+      --primary-soft: #e8f2fa; --accent: #f59e0b; --accent-soft: #fef3c7;
+      --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; --text-muted: #64748b;
+      --border: #e2e8f0; --success: #10b981; --danger: #ef4444; --premium: #7c3aed;
+      --premium-soft: #ede9fe; --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.06);
+      --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.1); --radius: 16px; --radius-sm: 10px;
+    }
+    [data-theme="dark"] {
+      --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --text-muted: #94a3b8;
+      --border: #334155; --primary-soft: #1e3a5f; --premium-soft: #2e1065;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    [data-theme="dark"] .nav { background: rgba(15,23,42,0.92); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 1rem; gap: .75rem; }
+    .logo { display: flex; align-items: center; gap: .5rem; font-weight: 800; font-size: 1.15rem; color: var(--primary); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 9px; display: grid; place-items: center; color: #fff; font-size: .95rem; }
+    .nav-search { flex: 1; max-width: 380px; position: relative; }
+    .nav-search input { width: 100%; padding: .5rem 2.2rem .5rem .9rem; border: 1.5px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text); font-size: .85rem; font-family: inherit; outline: none; }
+    .nav-search input:focus { border-color: var(--primary); }
+    .nav-actions { display: flex; gap: .35rem; align-items: center; }
+    .nav-btn { padding: .4rem .85rem; border-radius: 999px; font-weight: 600; font-size: .78rem; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; transition: .15s; }
+    .nav-btn-ghost { background: transparent; color: var(--text-muted); }
+    .nav-btn-ghost:hover { background: var(--primary-soft); color: var(--primary); }
+    .nav-btn-primary { background: var(--primary); color: #fff; }
+    .nav-btn-primary:hover { background: var(--primary-dark); }
+    .nav-btn-premium { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff; }
+    .nav-btn-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; padding: 0; background: var(--bg); color: var(--text-muted); position: relative; border: none; cursor: pointer; }
+    .badge-count { position: absolute; top: -2px; right: -2px; background: var(--danger); color: #fff; font-size: .6rem; font-weight: 700; min-width: 15px; height: 15px; border-radius: 999px; display: grid; place-items: center; }
+    .user-chip { display: flex; align-items: center; gap: .4rem; padding: .25rem .6rem .25rem .3rem; background: var(--primary-soft); border-radius: 999px; cursor: pointer; font-size: .78rem; font-weight: 600; color: var(--primary); }
+    .user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: .7rem; font-weight: 700; }
+    .premium-badge { background: var(--premium); color: #fff; font-size: .6rem; padding: .1rem .35rem; border-radius: 4px; font-weight: 700; }
+
+    /* HERO */
+    .hero { background: linear-gradient(145deg, #245482 0%, #3170a4 45%, #8fb6d8 100%); color: #fff; padding: 2.2rem 1.25rem 2.5rem; position: relative; overflow: hidden; }
+    .hero-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+    .badge-pill { display: inline-flex; align-items: center; gap: .35rem; background: rgba(255,255,255,.18); padding: .25rem .7rem; border-radius: 999px; font-size: .72rem; font-weight: 600; margin-bottom: .8rem; }
+    .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; line-height: 1.25; margin-bottom: .6rem; max-width: 640px; }
+    .hero p { opacity: .9; font-size: .95rem; max-width: 520px; margin-bottom: 1.2rem; }
+    .hero-cta { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn-hero { padding: .6rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: .85rem; border: none; cursor: pointer; font-family: inherit; }
+    .btn-hero-primary { background: #fff; color: var(--primary); }
+    .btn-hero-ghost { background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.4); }
+    .hero-stats { display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-size: 1.3rem; font-weight: 800; }
+    .hero-stat span { font-size: .75rem; opacity: .85; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+
+    /* TABS & FILTERS */
+    .section-title { font-size: 1.15rem; font-weight: 700; margin-bottom: .25rem; }
+    .section-sub { font-size: .82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .filter-bar { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .8rem; }
+    .filter-chip { padding: .4rem .85rem; border-radius: 999px; border: 1.5px solid var(--border); background: var(--card); font-size: .78rem; font-weight: 600; cursor: pointer; font-family: inherit; color: var(--text-muted); transition: .15s; display: flex; align-items: center; gap: .3rem; }
+    .filter-chip.active, .filter-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+    .chip-count { background: var(--bg); padding: .05rem .35rem; border-radius: 999px; font-size: .68rem; }
+    .filter-chip.active .chip-count { background: var(--primary); color: #fff; }
+    .subfilter-wrap { display: none; gap: .35rem; flex-wrap: wrap; margin-bottom: .8rem; }
+    .subfilter-wrap.show { display: flex; }
+    .subfilter-chip { padding: .3rem .7rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font-size: .72rem; font-weight: 600; cursor: pointer; font-family: inherit; color: var(--text-muted); }
+    .subfilter-chip.active { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+    /* CARDS */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; transition: .2s; position: relative; cursor: pointer; }
+    .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--primary-light); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
+    .card-type { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; padding: .15rem .5rem; border-radius: 6px; background: var(--primary-soft); color: var(--primary); }
+    .card-type.Lomba { background: #fef3c7; color: #b45309; }
+    .card-type.Beasiswa { background: #dbeafe; color: #1d4ed8; }
+    .card-type.Magang { background: #d1fae5; color: #047857; }
+    .card-type.Volunteer { background: #fce7f3; color: #be185d; }
+    .card-type.Pelatihan { background: #ede9fe; color: #6d28d9; }
+    .card-match { font-size: .72rem; font-weight: 700; color: var(--success); }
+    .card-title { font-size: .95rem; font-weight: 700; margin-bottom: .35rem; line-height: 1.35; }
+    .card-desc { font-size: .8rem; color: var(--text-muted); margin-bottom: .6rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-meta { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .72rem; color: var(--text-muted); margin-bottom: .6rem; }
+    .card-meta span { display: flex; align-items: center; gap: .2rem; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .verify-badge { font-size: .68rem; font-weight: 600; padding: .15rem .45rem; border-radius: 6px; }
+    .verify-kampus { background: #d1fae5; color: #047857; }
+    .verify-partner { background: #dbeafe; color: #1d4ed8; }
+    .verify-komunitas { background: #fef3c7; color: #b45309; }
+    .deadline-urgent { color: var(--danger); font-weight: 700; }
+    .deadline-soon { color: var(--accent); font-weight: 600; }
+    .save-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; opacity: .5; transition: .15s; }
+    .save-btn.saved { opacity: 1; }
+    .premium-only-tag { position: absolute; top: .7rem; right: .7rem; background: var(--premium); color: #fff; font-size: .6rem; font-weight: 700; padding: .15rem .4rem; border-radius: 5px; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--card); border-radius: var(--radius); max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 1.5rem; position: relative; box-shadow: var(--shadow-lg); }
+    .modal-close { position: absolute; top: .8rem; right: .8rem; background: var(--bg); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; color: var(--text-muted); }
+    .modal h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; padding-right: 2rem; }
+    .modal-actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .btn { padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: .82rem; border: none; cursor: pointer; font-family: inherit; transition: .15s; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-premium { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff; }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+
+    /* AUTH */
+    .auth-tabs { display: flex; gap: .5rem; margin-bottom: 1.2rem; }
+    .auth-tab { flex: 1; padding: .5rem; text-align: center; border-radius: 8px; font-weight: 600; font-size: .85rem; cursor: pointer; background: var(--bg); color: var(--text-muted); border: none; font-family: inherit; }
+    .auth-tab.active { background: var(--primary); color: #fff; }
+    .form-group { margin-bottom: .9rem; }
+    .form-group label { display: block; font-size: .78rem; font-weight: 600; margin-bottom: .3rem; color: var(--text-muted); }
+    .form-group input, .form-group select { width: 100%; padding: .55rem .8rem; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-size: .88rem; font-family: inherit; outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+    .auth-error { color: var(--danger); font-size: .78rem; margin-bottom: .6rem; display: none; }
+
+    /* PREMIUM COMPARISON */
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    @media (max-width: 520px) { .plan-grid { grid-template-columns: 1fr; } }
+    .plan-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 1.2rem; text-align: center; }
+    .plan-card.featured { border-color: var(--premium); background: var(--premium-soft); }
+    .plan-card h3 { font-size: 1rem; margin-bottom: .3rem; }
+    .plan-price { font-size: 1.5rem; font-weight: 800; margin: .4rem 0; }
+    .plan-features { text-align: left; font-size: .8rem; list-style: none; margin: .8rem 0; }
+    .plan-features li { padding: .25rem 0; display: flex; gap: .4rem; }
+    .plan-features li::before { content: "✓"; color: var(--success); font-weight: 700; }
+
+    /* DASHBOARD */
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .8rem; margin-bottom: 1.2rem; }
+    .dash-stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .9rem; text-align: center; }
+    .dash-stat strong { display: block; font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+    .dash-stat span { font-size: .72rem; color: var(--text-muted); }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; margin: .8rem 0; }
+    .checklist li { display: flex; align-items: center; gap: .5rem; padding: .4rem 0; font-size: .85rem; border-bottom: 1px solid var(--border); }
+    .checklist input { width: 16px; height: 16px; accent-color: var(--primary); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: #fff; padding: .7rem 1.3rem; border-radius: 999px; font-size: .85rem; font-weight: 600; z-index: 300; transition: .3s; opacity: 0; pointer-events: none; white-space: nowrap; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* DRAWER */
+    .drawer { position: fixed; top: 0; right: -360px; width: 340px; max-width: 90vw; height: 100%; background: var(--card); z-index: 250; box-shadow: var(--shadow-lg); transition: .3s; overflow-y: auto; padding: 1.2rem; }
+    .drawer.show { right: 0; }
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 240; display: none; }
+    .drawer-overlay.show { display: block; }
+
+    /* SMART DIGEST */
+    .digest-card { background: linear-gradient(135deg, var(--primary-soft), var(--premium-soft)); border-radius: var(--radius); padding: 1.2rem; margin-bottom: 1.2rem; border: 1px solid var(--border); }
+    .digest-card h3 { font-size: .95rem; margin-bottom: .5rem; }
+    .digest-locked { filter: blur(3px); pointer-events: none; user-select: none; }
+    .lock-overlay { text-align: center; padding: 1rem; }
+    .lock-overlay button { margin-top: .5rem; }
+
+    /* EMPTY */
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+    .empty-state .emoji { font-size: 2.5rem; margin-bottom: .5rem; }
+    .card-type.Lowongan { background: #ecfdf5; color: #047857; }
+    .api-badge { font-size: .58rem; background: #0ea5e9; color: #fff; padding: .12rem .35rem; border-radius: 4px; font-weight: 700; }
+    .job-analysis { background: var(--primary-soft); border-radius: 10px; padding: .9rem; margin: 1rem 0; font-size: .82rem; }
+    .job-analysis h4 { margin-bottom: .4rem; font-size: .88rem; }
+    .skill-tag { display: inline-block; background: var(--card); border: 1px solid var(--border); padding: .12rem .4rem; border-radius: 6px; margin: .12rem; font-size: .7rem; }
+    .source-note { font-size: .7rem; color: var(--text-muted); margin-top: .6rem; }
+
+    /* PROFILE PANEL */
+    .profile-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; margin-bottom: 1.2rem; display: none; }
+    .profile-panel.show { display: block; }
+    .interest-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .interest-tag { padding: .3rem .7rem; border-radius: 999px; border: 1.5px solid var(--border); font-size: .75rem; font-weight: 600; cursor: pointer; background: var(--bg); color: var(--text-muted); }
+    .interest-tag.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .mood-bar { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .mood-chip { padding: .35rem .75rem; border-radius: 999px; border: 1.5px solid var(--border); font-size: .75rem; font-weight: 600; cursor: pointer; background: var(--card); color: var(--text-muted); }
+    .mood-chip.active { background: var(--accent-soft); border-color: var(--accent); color: #b45309; }
+
+    .focus-banner { background: var(--accent-soft); border: 1px solid #fcd34d; border-radius: var(--radius-sm); padding: .8rem 1rem; margin-bottom: 1rem; font-size: .85rem; display: flex; align-items: center; gap: .6rem; }
+    .limit-banner { background: #fee2e2; border: 1px solid #fca5a5; border-radius: var(--radius-sm); padding: .7rem 1rem; margin-bottom: 1rem; font-size: .82rem; color: #991b1b; display: none; }
+
+    @media (max-width: 640px) {
+      .nav-search { display: none; }
+      .hero h1 { font-size: 1.35rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#" onclick="location.reload()">
+        <span class="logo-icon">🔗</span> SURLINK
+      </a>
+      <div class="nav-search">
+        <input type="search" id="searchInput" placeholder="Cari lomba, beasiswa, magang..." oninput="onSearch()" />
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn-icon" onclick="toggleTheme()" title="Mode gelap">🌙</button>
+        <button class="nav-btn-icon" onclick="openDrawer('notif')" title="Notifikasi">
+          🔔 <span class="badge-count" id="notifBadge" style="display:none">0</span>
+        </button>
+        <button class="nav-btn-icon" onclick="openDrawer('saved')" title="Tersimpan">
+          ⭐ <span class="badge-count" id="savedBadge" style="display:none">0</span>
+        </button>
+        <div id="authArea">
+          <button class="nav-btn nav-btn-ghost" onclick="openAuth('login')">Masuk</button>
+          <button class="nav-btn nav-btn-primary" onclick="openAuth('register')">Daftar</button>
+        </div>
+        <div id="userArea" style="display:none">
+          <div class="user-chip" onclick="openDrawer('profile')">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userNameLabel">User</span>
+            <span class="premium-badge" id="premiumBadge" style="display:none">PRO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="badge-pill">🏝️ Khusus Mahasiswa Universitas Bangka Belitung</div>
+      <h1>Satu tautan terverifikasi untuk semua peluang mahasiswa UBB</h1>
+      <p>Lomba, beasiswa, magang, volunteer & pelatihan — terkumpul, terverifikasi, dan dipersonalisasi sesuai minatmu.</p>
+      <div class="hero-cta">
+        <button class="btn-hero btn-hero-primary" onclick="document.getElementById('opportunities').scrollIntoView({behavior:'smooth'})">Jelajahi Peluang →</button>
+        <button class="btn-hero btn-hero-ghost" onclick="toggleProfile()">Atur Preferensi</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="statActive">0</strong><span>Peluang aktif</span></div>
+        <div class="hero-stat"><strong>~10.000</strong><span>Mahasiswa UBB</span></div>
+        <div class="hero-stat"><strong>100%</strong><span>Info terverifikasi</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" id="opportunities">
+    <!-- PROFILE -->
+    <div class="profile-panel" id="profilePanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem">
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:700">Profil & Preferensi</h3>
+          <p class="section-sub" style="margin:0">Atur agar Match Score & rekomendasi lebih akurat</p>
+        </div>
+        <button class="nav-btn nav-btn-ghost" onclick="toggleProfile()">Tutup ✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem">
+        <div class="form-group" style="margin:0">
+          <label>Jurusan</label>
+          <select id="profileMajor" onchange="saveProfile()">
+            <option value="">Pilih jurusan</option>
+            <option>Bisnis Digital</option><option>Manajemen</option><option>Akuntansi</option>
+            <option>Teknik Informatika</option><option>Agroteknologi</option><option>Ilmu Hukum</option><option>Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Semester</label>
+          <select id="profileSemester" onchange="saveProfile()">
+            <option value="">Pilih semester</option>
+            <option value="1-2">1–2 (Baru)</option><option value="3-4">3–4</option>
+            <option value="5-6">5–6</option><option value="7+">7+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Minat (klik untuk aktifkan filter)</label>
+        <div class="interest-tags" id="interestTags">
+          <span class="interest-tag" data-val="Beasiswa">Beasiswa</span>
+          <span class="interest-tag" data-val="Lomba">Lomba</span>
+          <span class="interest-tag" data-val="Magang">Magang</span>
+          <span class="interest-tag" data-val="Volunteer">Volunteer</span>
+          <span class="interest-tag" data-val="Pelatihan">Pelatihan</span>
+          <span class="interest-tag" data-val="Startup">Startup</span>
+          <span class="interest-tag" data-val="Riset">Riset</span>
+          <span class="interest-tag" data-val="Tech">Tech</span>
+          <span class="interest-tag" data-val="Lowongan">Lowongan</span>
+          <span class="interest-tag" data-val="Remote">Remote</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOOD -->
+    <div class="mood-bar">
+      <span style="font-size:.78rem;font-weight:600;color:var(--text-muted);align-self:center">Mood:</span>
+      <button class="mood-chip active" data-mood="all" onclick="setMood('all',this)">✨ Semua</button>
+      <button class="mood-chip" data-mood="ambisius" onclick="setMood('ambisius',this)">🚀 Ambisius</button>
+      <button class="mood-chip" data-mood="eksplor" onclick="setMood('eksplor',this)">🧭 Eksplor</button>
+      <button class="mood-chip" data-mood="santai" onclick="setMood('santai',this)">😎 Santai</button>
+      <button class="mood-chip" data-mood="lokal" onclick="setMood('lokal',this)">🏝️ Lokal dulu</button>
+    </div>
+
+    <!-- FOCUS -->
+    <div class="focus-banner" id="focusBanner">
+      <span>🔥</span>
+      <div><strong>Fokus Minggu Ini:</strong> Ada <span id="urgentCount">0</span> peluang dengan deadline ≤ 14 hari. Prioritaskan ini dulu!</div>
+    </div>
+
+    <!-- LIMIT BANNER (freemium) -->
+    <div class="limit-banner" id="limitBanner">
+      ⚠️ Kamu sudah mencapai batas simpan freemium (5 peluang). <a href="#" onclick="openPremium();return false" style="color:#991b1b;font-weight:700;text-decoration:underline">Upgrade ke Premium</a> untuk simpan unlimited.
+    </div>
+
+    <!-- SMART DIGEST -->
+    <div class="digest-card" id="digestCard">
+      <h3>✨ Ringkasan Pintar untukmu</h3>
+      <div id="digestContent">
+        <p style="font-size:.85rem;color:var(--text-muted)">Login & atur profil untuk mendapatkan ringkasan peluang yang paling relevan hari ini.</p>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-chip active" data-filter="all" onclick="setFilter('all',this)">Semua <span class="chip-count" id="count-all">0</span></button>
+      <button class="filter-chip" data-filter="Beasiswa" onclick="setFilter('Beasiswa',this)">🎓 Beasiswa <span class="chip-count" id="count-Beasiswa">0</span></button>
+      <button class="filter-chip" data-filter="Lomba" onclick="setFilter('Lomba',this)">🏆 Lomba <span class="chip-count" id="count-Lomba">0</span></button>
+      <button class="filter-chip" data-filter="Magang" onclick="setFilter('Magang',this)">💼 Magang <span class="chip-count" id="count-Magang">0</span></button>
+      <button class="filter-chip" data-filter="Volunteer" onclick="setFilter('Volunteer',this)">🤝 Volunteer <span class="chip-count" id="count-Volunteer">0</span></button>
+      <button class="filter-chip" data-filter="Pelatihan" onclick="setFilter('Pelatihan',this)">📚 Pelatihan <span class="chip-count" id="count-Pelatihan">0</span></button>
+      <button class="filter-chip" data-filter="Lowongan" onclick="setFilter('Lowongan',this)">💼 Lowongan <span class="chip-count" id="count-Lowongan">0</span></button>
+    </div>
+    <div class="subfilter-wrap" id="subLomba">
+      <button class="subfilter-chip active" data-sub="all" onclick="setSub('all',this)">Semua tingkat</button>
+      <button class="subfilter-chip" data-sub="Internasional" onclick="setSub('Internasional',this)">🌍 Internasional</button>
+      <button class="subfilter-chip" data-sub="Nasional" onclick="setSub('Nasional',this)">🇮🇩 Nasional</button>
+      <button class="subfilter-chip" data-sub="Regional" onclick="setSub('Regional',this)">🗺️ Regional</button>
+      <button class="subfilter-chip" data-sub="Kampus" onclick="setSub('Kampus',this)">🏫 Kampus</button>
+    </div>
+    <div class="subfilter-wrap" id="subBeasiswa">
+      <button class="subfilter-chip active" data-sub="all" onclick="setSub('all',this)">Semua</button>
+      <button class="subfilter-chip" data-sub="Luar Negeri" onclick="setSub('Luar Negeri',this)">🌍 Luar Negeri</button>
+      <button class="subfilter-chip" data-sub="Nasional" onclick="setSub('Nasional',this)">🇮🇩 Nasional</button>
+      <button class="subfilter-chip" data-sub="Regional" onclick="setSub('Regional',this)">🗺️ Regional</button>
+    </div>
+    <div class="subfilter-wrap" id="subMagang">
+      <button class="subfilter-chip active" data-sub="all" onclick="setSub('all',this)">Semua</button>
+      <button class="subfilter-chip" data-sub="Full-time" onclick="setSub('Full-time',this)">Full-time</button>
+      <button class="subfilter-chip" data-sub="Part-time" onclick="setSub('Part-time',this)">Part-time</button>
+      <button class="subfilter-chip" data-sub="Remote" onclick="setSub('Remote',this)">Remote / Hybrid</button>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem">
+      <p class="section-sub" style="margin:0" id="resultCount">0 peluang</p>
+      <button class="nav-btn nav-btn-ghost" onclick="openCompare()" id="compareBtn" style="display:none">⚖️ Bandingkan (<span id="compareCount">0</span>)</button>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="emoji">🔍</div>
+      <p>Tidak ada peluang yang cocok. Coba ubah filter atau mood.</p>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal" id="detailContent"></div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('authModal')">×</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">Masuk</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuth('register')">Daftar</button>
+      </div>
+      <div class="auth-error" id="authError"></div>
+      <div id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="nama@student.ubb.ac.id" /></div>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" /></div>
+        <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Masuk</button>
+        <p style="font-size:.75rem;color:var(--text-muted);margin-top:.8rem;text-align:center">Demo: email apapun + password minimal 4 karakter</p>
+      </div>
+      <div id="registerForm" style="display:none">
+        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="regName" placeholder="Nama kamu" /></div>
+        <div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="nama@student.ubb.ac.id" /></div>
+        <div class="form-group"><label>Password</label><input type="password" id="regPassword" placeholder="Minimal 4 karakter" /></div>
+        <div class="form-group"><label>Jurusan</label>
+          <select id="regMajor"><option value="">Pilih</option><option>Bisnis Digital</option><option>Manajemen</option><option>Akuntansi</option><option>Teknik Informatika</option><option>Agroteknologi</option><option>Ilmu Hukum</option><option>Lainnya</option></select>
+        </div>
+        <button class="btn btn-primary" style="width:100%" onclick="doRegister()">Daftar Gratis</button>
+        <p style="font-size:.75rem;color:var(--text-muted);margin-top:.8rem;text-align:center">Akun freemium · Upgrade ke Premium kapan saja</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREMIUM MODAL -->
+  <div class="modal-overlay" id="premiumModal">
+    <div class="modal" style="max-width:580px">
+      <button class="modal-close" onclick="closeModal('premiumModal')">×</button>
+      <h2>✨ Upgrade ke SURLINK Premium</h2>
+      <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem">Buka semua fitur untuk tidak ketinggalan peluang terbaik.</p>
+      <div class="plan-grid">
+        <div class="plan-card">
+          <h3>Freemium</h3>
+          <div class="plan-price">Gratis</div>
+          <ul class="plan-features">
+            <li>Cari & filter peluang</li>
+            <li>Badge verifikasi</li>
+            <li>Simpan max 5 peluang</li>
+            <li>Reminder dasar (H-3)</li>
+            <li>Bandingkan max 2 item</li>
+            <li>Match Score dasar</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%" disabled>Paket Saat Ini</button>
+        </div>
+        <div class="plan-card featured">
+          <h3>Premium ⭐</h3>
+          <div class="plan-price">Rp 15rb<span style="font-size:.7rem;font-weight:500">/bln</span></div>
+          <ul class="plan-features">
+            <li>Semua fitur Freemium</li>
+            <li>Simpan unlimited</li>
+            <li>Reminder H-7 & H-3 + email</li>
+            <li>Bandingkan hingga 5 item</li>
+            <li>Smart Digest & insight</li>
+            <li>Checklist persiapan daftar</li>
+            <li>Akses early listing</li>
+            <li>Tanpa batasan mood filter</li>
+          </ul>
+          <button class="btn btn-premium" style="width:100%" onclick="activatePremium()">Aktifkan Premium (Demo)</button>
+        </div>
+      </div>
+      <p style="font-size:.72rem;color:var(--text-muted);text-align:center">Demo mode: klik tombol untuk simulasi upgrade. Tidak ada pembayaran nyata.</p>
+    </div>
+  </div>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 id="drawerTitle" style="font-weight:700">Menu</h3>
+      <button class="modal-close" style="position:static" onclick="closeDrawer()">×</button>
+    </div>
+    <div id="drawerBody"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ========== DATA ==========
+    const EMBEDDED_OPPORTUNITIES = [
+  {id:1, title:"Hackathon Babel Tech Challenge 2026", type:"Lomba", scope:"Regional", desc:"Kompetisi coding & solusi digital isu kepulauan. Tim 2–4 orang. Hadiah Rp 25 juta + mentoring.", organizer:"Komunitas Tech Babel x Diskominfo", location:"Online + Final Pangkalpinang", deadline:"2026-12-05", verify:"komunitas", local:true, premium:false, tags:["Lomba","Tech","Startup"], hadiah:"Rp 25 juta", mood:["ambisius","lokal"]},
+  {id:2, title:"Kompetisi Business Plan UBB 2027", type:"Lomba", scope:"Kampus", desc:"Proposal bisnis inovatif fokus potensi lokal Babel. Hadiah Rp 15 juta + inkubasi BEM.", organizer:"BEM Universitas Bangka Belitung", location:"Kampus UBB", deadline:"2026-12-01", verify:"kampus", local:true, premium:false, tags:["Lomba","Startup","Bisnis"], hadiah:"Rp 15 juta", mood:["ambisius","lokal"]},
+  {id:3, title:"Lomba Debat Hukum Antar Fakultas UBB", type:"Lomba", scope:"Kampus", desc:"Debat hukum tingkat universitas. Juara mewakili UBB tingkat nasional.", organizer:"BEM Fakultas Hukum UBB", location:"Kampus UBB", deadline:"2026-12-08", verify:"kampus", local:true, premium:false, tags:["Lomba","Hukum"], hadiah:"Trophy + Sertifikat", mood:["ambisius","eksplor"]},
+  {id:4, title:"National Essay Competition Generasi Emas 2027", type:"Lomba", scope:"Nasional", desc:"Essay pembangunan daerah & ekonomi biru. Hadiah + publikasi media nasional.", organizer:"Kemenpora RI", location:"Online", deadline:"2026-12-15", verify:"partner", local:false, premium:false, tags:["Lomba","Essay","Nasional"], hadiah:"Rp 10 juta", mood:["ambisius"]},
+  {id:5, title:"National Business Case Competition 2027", type:"Lomba", scope:"Nasional", desc:"Case study bisnis. Tim 3 orang. Final Jakarta. Hadiah Rp 50 juta.", organizer:"HIMA Manajemen UI", location:"Online + Final Jakarta", deadline:"2026-12-21", verify:"partner", local:false, premium:false, tags:["Lomba","Bisnis","Case"], hadiah:"Rp 50 juta", mood:["ambisius"]},
+  {id:6, title:"ASEAN Student Innovation Challenge 2027", type:"Lomba", scope:"Internasional", desc:"Inovasi mahasiswa Asia-Pasifik. Proposal EN. Hadiah USD 5.000.", organizer:"ASEAN University Network", location:"Online + Final Singapore", deadline:"2027-01-12", verify:"partner", local:false, premium:true, tags:["Lomba","Inovasi","Internasional"], hadiah:"USD 5.000", mood:["ambisius"]},
+  {id:7, title:"World University Debate Championship Qualifier", type:"Lomba", scope:"Internasional", desc:"Kualifikasi debat internasional. Bahasa Inggris. Grand final Melbourne.", organizer:"WUDC", location:"Online", deadline:"2027-01-22", verify:"partner", local:false, premium:true, tags:["Lomba","Debat","Internasional"], hadiah:"Trophy + Travel Grant", mood:["ambisius"]},
+  {id:8, title:"LKTI Regional Sumsel-Babel 2026", type:"Lomba", scope:"Regional", desc:"Karya tulis ilmiah penerapan IPTEK di daerah kepulauan. Publikasi jurnal.", organizer:"Kopertis Wilayah II", location:"Palembang / Hybrid", deadline:"2026-12-28", verify:"partner", local:true, premium:false, tags:["Lomba","Riset","Regional"], hadiah:"Rp 8 juta", mood:["eksplor","lokal"]},
+  {id:9, title:"UI/UX Design Challenge Babel Creative", type:"Lomba", scope:"Regional", desc:"Desain app untuk UMKM & wisata Babel. Hadiah + magang startup lokal.", organizer:"Komunitas Desain Babel", location:"Online", deadline:"2026-12-11", verify:"komunitas", local:true, premium:false, tags:["Lomba","Tech","Design"], hadiah:"Rp 12 juta", mood:["eksplor","lokal"]},
+  {id:10, title:"Pitch Deck Competition Startup Mahasiswa", type:"Lomba", scope:"Nasional", desc:"Pitch 3 menit di depan investor. Fokus impact social/climate. Seed funding Rp 100 juta.", organizer:"IndoStartup x Google for Startups", location:"Jakarta + Online", deadline:"2027-01-04", verify:"partner", local:false, premium:true, tags:["Lomba","Startup","Bisnis"], hadiah:"Seed Rp 100 juta", mood:["ambisius"]},
+  {id:25, title:"Olimpiade Matematika Mahasiswa Regional Babel", type:"Lomba", scope:"Regional", desc:"Olimpiade matematika tingkat regional. Individu & beregu. Sertifikat + medali.", organizer:"Himpunan Matematika Sumatera", location:"Pangkalpinang", deadline:"2026-12-13", verify:"partner", local:true, premium:false, tags:["Lomba","Riset"], hadiah:"Medali + Sertifikat", mood:["eksplor","lokal"]},
+  {id:26, title:"Lomba Fotografi Lingkungan Babel 2026", type:"Lomba", scope:"Regional", desc:"Tema keindahan & isu lingkungan kepulauan. Hadiah kamera + pameran.", organizer:"Dinas Pariwisata Babel", location:"Online submission", deadline:"2026-12-18", verify:"partner", local:true, premium:false, tags:["Lomba"], hadiah:"Kamera + Pameran", mood:["santai","lokal"]},
+  {id:27, title:"Hackathon Fintech Mahasiswa Nasional", type:"Lomba", scope:"Nasional", desc:"Solusi fintech untuk inklusi keuangan daerah. Tim 3–5. Hadiah Rp 75 juta.", organizer:"Asosiasi Fintech Indonesia", location:"Online + Final Jakarta", deadline:"2027-01-17", verify:"partner", local:false, premium:true, tags:["Lomba","Tech","Bisnis"], hadiah:"Rp 75 juta", mood:["ambisius"]},
+  {id:28, title:"Lomba Esai Hukum Konstitusi Nasional", type:"Lomba", scope:"Nasional", desc:"Esai hukum konstitusi & HAM. Seleksi berjenjang. Publikasi jurnal hukum.", organizer:"Mahkamah Konstitusi RI", location:"Online", deadline:"2027-01-02", verify:"partner", local:false, premium:false, tags:["Lomba","Hukum"], hadiah:"Rp 15 juta + publikasi", mood:["ambisius"]},
+  {id:11, title:"Beasiswa Unggulan Kemdikbud 2027", type:"Beasiswa", scope:"Nasional", desc:"Beasiswa penuh S1/S2 berprestasi. Cover UKT + biaya hidup. Semester 3–6.", organizer:"Kemdikbudristek", location:"Seluruh Indonesia", deadline:"2026-12-15", verify:"partner", local:false, premium:false, tags:["Beasiswa","Nasional"], hadiah:"Full tuition + living", mood:["ambisius"]},
+  {id:12, title:"Beasiswa Prestasi Provinsi Babel", type:"Beasiswa", scope:"Regional", desc:"Beasiswa daerah UBB berprestasi akademik & non-akademik. Rp 6 juta/semester.", organizer:"Pemprov Kep. Bangka Belitung", location:"Babel", deadline:"2026-12-08", verify:"partner", local:true, premium:false, tags:["Beasiswa","Regional"], hadiah:"Rp 6 jt/semester", mood:["lokal","ambisius"]},
+  {id:13, title:"LPDP Affirmation Scholarship 2027", type:"Beasiswa", scope:"Luar Negeri", desc:"Beasiswa S2/S3 luar negeri untuk putra-putri daerah 3T termasuk Babel.", organizer:"LPDP", location:"Luar Negeri", deadline:"2027-02-06", verify:"partner", local:false, premium:true, tags:["Beasiswa","Luar Negeri"], hadiah:"Full + living abroad", mood:["ambisius"]},
+  {id:14, title:"Beasiswa Bank Indonesia 2027", type:"Beasiswa", scope:"Nasional", desc:"Beasiswa BI untuk ekonomi, bisnis, STEM. Tunjangan bulanan + mentoring.", organizer:"Bank Indonesia", location:"Nasional", deadline:"2027-01-12", verify:"partner", local:false, premium:false, tags:["Beasiswa","Nasional","Bisnis"], hadiah:"Tunjangan + mentoring", mood:["ambisius"]},
+  {id:29, title:"Beasiswa Djarum Plus 2027", type:"Beasiswa", scope:"Nasional", desc:"Beasiswa + soft skill training. Seleksi ketat. Networking alumni kuat.", organizer:"Djarum Foundation", location:"Nasional", deadline:"2027-01-07", verify:"partner", local:false, premium:false, tags:["Beasiswa","Nasional"], hadiah:"UKT + training", mood:["ambisius","eksplor"]},
+  {id:30, title:"Beasiswa Tanoto Foundation 2027", type:"Beasiswa", scope:"Nasional", desc:"Beasiswa prestasi + leadership program. Fokus impact sosial.", organizer:"Tanoto Foundation", location:"Nasional", deadline:"2027-01-22", verify:"partner", local:false, premium:true, tags:["Beasiswa","Nasional"], hadiah:"Full + leadership camp", mood:["ambisius"]},
+  {id:31, title:"Beasiswa BCA Finance 2027", type:"Beasiswa", scope:"Nasional", desc:"Beasiswa untuk mahasiswa berprestasi di bidang bisnis & teknik.", organizer:"BCA Finance", location:"Nasional", deadline:"2026-12-23", verify:"partner", local:false, premium:false, tags:["Beasiswa","Bisnis"], hadiah:"Rp 10 jt/tahun", mood:["ambisius"]},
+  {id:15, title:"Magang Data Analyst Startup EdTech", type:"Magang", scope:"Remote", desc:"Remote 3 bulan. Flexible. SQL/Python dasar. Sertifikat + possible hire.", organizer:"Startup EdTech Nasional", location:"Remote", deadline:"2026-12-15", verify:"partner", local:false, premium:false, tags:["Magang","Data","Tech"], hadiah:"Allowance + sertifikat", mood:["eksplor","ambisius"]},
+  {id:16, title:"Magang Content Creator Prodi Bisnis Digital", type:"Magang", scope:"Part-time", desc:"Media sosial & konten prodi. 10–15 jam/minggu. Desain & writing.", organizer:"Prodi Bisnis Digital UBB", location:"Kampus UBB", deadline:"2026-12-01", verify:"kampus", local:true, premium:false, tags:["Magang","Content","Marketing"], hadiah:"SKS / sertifikat", mood:["santai","lokal"]},
+  {id:17, title:"Magang Digital Marketing Agency Babel", type:"Magang", scope:"Full-time", desc:"4–6 bulan agency digital marketing. Campaign klien nyata. Transport ditanggung.", organizer:"Agency Lokal Pangkalpinang", location:"Pangkalpinang", deadline:"2026-12-21", verify:"komunitas", local:true, premium:false, tags:["Magang","Marketing"], hadiah:"Allowance + transport", mood:["ambisius","lokal"]},
+  {id:18, title:"Google Student Internship SEA 2027", type:"Magang", scope:"Remote", desc:"Internship Google untuk mahasiswa SEA. Remote/hybrid. Sangat kompetitif.", organizer:"Google", location:"Remote / Singapore", deadline:"2027-01-22", verify:"partner", local:false, premium:true, tags:["Magang","Tech","Internasional"], hadiah:"Competitive stipend", mood:["ambisius"]},
+  {id:32, title:"Magang Riset Dosen UBB (MBKM)", type:"Magang", scope:"Part-time", desc:"Asisten riset dosen berbagai prodi. Konversi SKS MBKM. Sertifikat.", organizer:"LPPM UBB", location:"Kampus UBB", deadline:"2026-12-07", verify:"kampus", local:true, premium:false, tags:["Magang","Riset"], hadiah:"SKS MBKM", mood:["eksplor","lokal"]},
+  {id:33, title:"Magang Customer Success SaaS Startup", type:"Magang", scope:"Remote", desc:"Remote 3–4 bulan. Komunikasi klien, onboarding, analytics dasar.", organizer:"SaaS Startup Jakarta", location:"Remote", deadline:"2026-12-28", verify:"partner", local:false, premium:false, tags:["Magang","Bisnis","Tech"], hadiah:"Allowance Rp 1,5–2,5 jt", mood:["eksplor","ambisius"]},
+  {id:34, title:"Magang Finance & Accounting BUMN Cabang Babel", type:"Magang", scope:"Full-time", desc:"Magang 6 bulan di cabang BUMN Babel. Pengalaman industri nyata.", organizer:"BUMN (cabang Babel)", location:"Pangkalpinang", deadline:"2027-01-02", verify:"partner", local:true, premium:false, tags:["Magang","Akuntansi","Bisnis"], hadiah:"Allowance resmi", mood:["ambisius","lokal"]},
+  {id:35, title:"Magang Product Design (UI/UX) Remote", type:"Magang", scope:"Remote", desc:"Portfolio-based. Figma wajib. Mentorship designer senior.", organizer:"Product Studio ID", location:"Remote", deadline:"2026-12-18", verify:"partner", local:false, premium:false, tags:["Magang","Tech","Design"], hadiah:"Allowance + portfolio project", mood:["eksplor"]},
+  {id:36, title:"Magang Humas & Komunikasi Pemda Babel", type:"Magang", scope:"Part-time", desc:"Konten humas, liputan event, media relations. Cocok jurusan komunikasi/bisnis.", organizer:"Pemprov Kep. Babel", location:"Pangkalpinang", deadline:"2026-12-11", verify:"partner", local:true, premium:false, tags:["Magang","Content"], hadiah:"Sertifikat + transport", mood:["santai","lokal"]},
+  {id:19, title:"Volunteer Festival Timah Babel 2026", type:"Volunteer", scope:"Regional", desc:"Relawan festival budaya & ekonomi lokal. Sertifikat + networking.", organizer:"Pemprov Kep. Bangka Belitung", location:"Bangka", deadline:"2026-12-05", verify:"partner", local:true, premium:false, tags:["Volunteer","Event"], hadiah:"Sertifikat + networking", mood:["santai","lokal"]},
+  {id:20, title:"Volunteer Pengajar Desa Digital", type:"Volunteer", scope:"Regional", desc:"Literasi digital di desa Bangka. 1 bulan. Transport & konsumsi ditanggung.", organizer:"Komunitas Relawan Babel", location:"Kab. Bangka", deadline:"2026-12-28", verify:"komunitas", local:true, premium:false, tags:["Volunteer","Pendidikan","Tech"], hadiah:"Transport + sertifikat", mood:["eksplor","lokal"]},
+  {id:37, title:"Volunteer Beach Clean-up & Edukasi Lingkungan", type:"Volunteer", scope:"Regional", desc:"Bersih pantai + edukasi sampah plastik. Weekend. Sertifikat komunitas.", organizer:"Komunitas Lingkungan Babel", location:"Pantai Bangka/Belitung", deadline:"2026-12-03", verify:"komunitas", local:true, premium:false, tags:["Volunteer"], hadiah:"Sertifikat", mood:["santai","lokal"]},
+  {id:38, title:"Volunteer Mentor Belajar Online untuk SMA", type:"Volunteer", scope:"Nasional", desc:"Mentor mapel SMA via Zoom. 4–8 jam/minggu. Fleksibel. Sertifikat.", organizer:"Komunitas Edukasi Nasional", location:"Online", deadline:"2026-12-13", verify:"partner", local:false, premium:false, tags:["Volunteer","Pendidikan"], hadiah:"Sertifikat mentor", mood:["eksplor","santai"]},
+  {id:39, title:"Volunteer Event Organizer Seminar Nasional UBB", type:"Volunteer", scope:"Kampus", desc:"Panitia seminar nasional. Divisi acara, publikasi, konsumsi. SKP UKM.", organizer:"BEM UBB", location:"Kampus UBB", deadline:"2026-11-30", verify:"kampus", local:true, premium:false, tags:["Volunteer","Event"], hadiah:"SKP + sertifikat", mood:["santai","lokal"]},
+  {id:40, title:"Volunteer Translasi Dokumen Open Source", type:"Volunteer", scope:"Internasional", desc:"Terjemahan dokumentasi open source (ID↔EN). Remote. Portofolio global.", organizer:"Open Source Community", location:"Remote", deadline:"2027-02-21", verify:"komunitas", local:false, premium:false, tags:["Volunteer","Tech"], hadiah:"Credit & portfolio", mood:["eksplor"]},
+  {id:21, title:"Pelatihan Data Analytics untuk Mahasiswa", type:"Pelatihan", scope:"Kampus", desc:"Workshop 2 hari: analysis, dashboard, storytelling. Gratis mahasiswa UBB.", organizer:"Prodi Bisnis Digital UBB", location:"Kampus UBB", deadline:"2026-11-28", verify:"kampus", local:true, premium:false, tags:["Pelatihan","Data","Skill"], hadiah:"Sertifikat gratis", mood:["eksplor","santai"]},
+  {id:22, title:"Pelatihan Public Speaking & Leadership", type:"Pelatihan", scope:"Kampus", desc:"Intensif 3 hari. Sertifikat + coaching 1-on-1.", organizer:"UKM Penalaran UBB", location:"Kampus UBB", deadline:"2026-12-01", verify:"kampus", local:true, premium:false, tags:["Pelatihan","Skill","Leadership"], hadiah:"Sertifikat + coaching", mood:["eksplor"]},
+  {id:23, title:"Bootcamp Product Management Batch 7", type:"Pelatihan", scope:"Nasional", desc:"Bootcamp 4 minggu intensif. Mentorship PM unicorn Indonesia.", organizer:"Product Academy ID", location:"Online", deadline:"2027-01-04", verify:"partner", local:false, premium:true, tags:["Pelatihan","Product","Skill"], hadiah:"Sertifikat + job connect", mood:["ambisius"]},
+  {id:24, title:"Workshop AI for Business Students", type:"Pelatihan", scope:"Kampus", desc:"AI tools untuk riset, content, analisis bisnis. Hands-on ChatGPT, Claude, Notion AI.", organizer:"Prodi Bisnis Digital UBB", location:"Kampus UBB", deadline:"2026-12-11", verify:"kampus", local:true, premium:false, tags:["Pelatihan","AI","Skill"], hadiah:"Sertifikat", mood:["eksplor","santai"]},
+  {id:41, title:"Pelatihan Digital Marketing 101", type:"Pelatihan", scope:"Kampus", desc:"SEO, ads, content strategy, analytics. Praktik kampanye mini.", organizer:"HIMA Bisnis Digital UBB", location:"Kampus UBB", deadline:"2026-12-07", verify:"kampus", local:true, premium:false, tags:["Pelatihan","Marketing","Skill"], hadiah:"Sertifikat", mood:["eksplor","lokal"]},
+  {id:42, title:"Workshop Excel & Google Sheets for Business", type:"Pelatihan", scope:"Kampus", desc:"Pivot, VLOOKUP, dashboard, otomasi dasar. Sangat praktis untuk magang.", organizer:"Prodi Manajemen UBB", location:"Kampus UBB", deadline:"2026-11-29", verify:"kampus", local:true, premium:false, tags:["Pelatihan","Skill"], hadiah:"Sertifikat", mood:["santai","eksplor"]},
+  {id:43, title:"Bootcamp Full-Stack Web (HTML-CSS-JS-React)", type:"Pelatihan", scope:"Nasional", desc:"8 minggu. Project portfolio. Mentorship. Cocok ganti karier / magang tech.", organizer:"Coding Bootcamp ID", location:"Online", deadline:"2027-01-12", verify:"partner", local:false, premium:true, tags:["Pelatihan","Tech","Skill"], hadiah:"Sertifikat + portfolio", mood:["ambisius"]},
+  {id:44, title:"Pelatihan Riset & Penulisan Karya Ilmiah", type:"Pelatihan", scope:"Kampus", desc:"Metodologi, sitasi, struktur paper, submit jurnal. Gratis mahasiswa UBB.", organizer:"LPPM UBB", location:"Kampus UBB", deadline:"2026-12-09", verify:"kampus", local:true, premium:false, tags:["Pelatihan","Riset","Skill"], hadiah:"Sertifikat", mood:["eksplor","lokal"]}
+];
+
+    let opportunities = [...EMBEDDED_OPPORTUNITIES];
+
+    // ========== API-READY LOADER ==========
+    // Coba load dari opportunities.json (bisa diganti endpoint API nyata nanti).
+    // Fallback ke data embedded jika gagal (offline / CORS / GitHub Pages path).
+    async function loadOpportunities() {
+      // Local curated beasiswa/lomba/magang/volunteer/pelatihan + international
+      let local = [...EMBEDDED_OPPORTUNITIES];
+      const EXTRA_INTL = [
+        { id:701, title:"Chevening Scholarships UK 2027", type:"Beasiswa", scope:"Luar Negeri",
+          desc:"Beasiswa penuh S2 di Inggris dari pemerintah UK. Leadership & networking global.",
+          organizer:"UK Foreign Office / Chevening", location:"United Kingdom",
+          deadline:"2027-11-05", verify:"partner", local:false, premium:true,
+          tags:["Beasiswa","Luar Negeri"], hadiah:"Full tuition + living UK", mood:["ambisius"],
+          source:"Kurasi", sourceUrl:"https://www.chevening.org/" },
+        { id:702, title:"Australia Awards Scholarship 2027", type:"Beasiswa", scope:"Luar Negeri",
+          desc:"Beasiswa S2/S3 Australia untuk negara berkembang termasuk Indonesia. Full package.",
+          organizer:"Australian Government", location:"Australia",
+          deadline:"2027-04-30", verify:"partner", local:false, premium:true,
+          tags:["Beasiswa","Luar Negeri"], hadiah:"Full + living AU", mood:["ambisius"],
+          source:"Kurasi", sourceUrl:"https://www.australiaawards.gov.au/" },
+        { id:703, title:"DAAD Scholarship Germany 2027", type:"Beasiswa", scope:"Luar Negeri",
+          desc:"Skema beasiswa Jerman untuk S2/S3/riset. Development-Related Postgraduate Courses.",
+          organizer:"DAAD", location:"Germany",
+          deadline:"2027-03-15", verify:"partner", local:false, premium:false,
+          tags:["Beasiswa","Luar Negeri"], hadiah:"Stipend + tuition support", mood:["ambisius"],
+          source:"Kurasi", sourceUrl:"https://www.daad.de/en/" },
+        { id:704, title:"MEXT Scholarship Japan 2027", type:"Beasiswa", scope:"Luar Negeri",
+          desc:"Beasiswa pemerintah Jepang S1/S2/S3. Full tuition + stipend + tiket pesawat.",
+          organizer:"Government of Japan (MEXT)", location:"Japan",
+          deadline:"2027-05-31", verify:"partner", local:false, premium:true,
+          tags:["Beasiswa","Luar Negeri"], hadiah:"Full package Japan", mood:["ambisius"],
+          source:"Kurasi", sourceUrl:"https://www.studyinjapan.go.jp/" },
+        { id:705, title:"Coursera Google Career Certificates", type:"Pelatihan", scope:"Nasional",
+          desc:"Sertifikat Google (Data Analytics, UX, IT Support). Bisa financial aid gratis.",
+          organizer:"Google / Coursera", location:"Online",
+          deadline:"2027-12-31", verify:"partner", local:false, premium:false,
+          tags:["Pelatihan","Skill","Tech"], hadiah:"Sertifikat industri", mood:["eksplor","santai"],
+          source:"Kurasi", sourceUrl:"https://www.coursera.org/google-certificates" },
+        { id:706, title:"freeCodeCamp Full Curriculum", type:"Pelatihan", scope:"Nasional",
+          desc:"Kurikulum gratis coding, data, ML. Sertifikat setelah project. 100% gratis.",
+          organizer:"freeCodeCamp", location:"Online",
+          deadline:"2027-12-31", verify:"komunitas", local:false, premium:false,
+          tags:["Pelatihan","Tech","Skill"], hadiah:"Sertifikat gratis", mood:["eksplor"],
+          source:"Kurasi", sourceUrl:"https://www.freecodecamp.org/" }
+      ];
+      const candidates = ['./opportunities.json','opportunities.json'];
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url + '?t=' + Date.now(), { cache: 'no-store' });
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (Array.isArray(data) && data.length) { local = data; break; }
+        } catch (e) {}
+      }
+
+      // LIVE JOB APIs (no key) — Remotive + Jobicy
+      let liveJobs = [];
+      try {
+        const res = await fetch('https://remotive.com/api/remote-jobs?limit=18', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          (data.jobs || []).slice(0, 14).forEach((j, idx) => {
+            const tags = (j.tags || []).slice(0, 5);
+            const deadline = new Date(); deadline.setDate(deadline.getDate() + 20 + (idx % 9));
+            liveJobs.push({
+              id: 90000 + (j.id % 9000),
+              title: j.title || 'Remote Job',
+              type: 'Lowongan',
+              scope: (j.job_type || 'remote').replace('_', '-'),
+              desc: String(j.description || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200) + '…',
+              organizer: j.company_name || 'Company',
+              location: (j.candidate_required_location || 'Worldwide') + ' · Remote',
+              deadline: deadline.toISOString().slice(0, 10),
+              verify: 'partner', local: false, premium: false,
+              tags: ['Lowongan', 'Remote'].concat(tags),
+              hadiah: j.salary || 'Lihat di sumber',
+              mood: ['eksplor', 'ambisius'],
+              source: 'Remotive', sourceUrl: j.url || 'https://remotive.com',
+              skills: tags, rawCategory: j.category || ''
+            });
+          });
+          console.log('[SURLINK] Remotive jobs:', liveJobs.length);
+        }
+      } catch (e) { console.warn('Remotive', e.message); }
+
+      try {
+        const res = await fetch('https://jobicy.com/api/v2/remote-jobs?count=10', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          (data.jobs || []).slice(0, 8).forEach((j, idx) => {
+            const industry = Array.isArray(j.jobIndustry) ? j.jobIndustry : [];
+            const tags = industry.map(String).slice(0, 4);
+            const deadline = new Date(); deadline.setDate(deadline.getDate() + 18 + (idx % 7));
+            liveJobs.push({
+              id: 80000 + idx + 1,
+              title: j.jobTitle || 'Remote Role',
+              type: 'Lowongan',
+              scope: String(j.jobType || 'Remote').split(',')[0].trim(),
+              desc: String(j.jobExcerpt || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 200) + '…',
+              organizer: j.companyName || 'Company',
+              location: (j.jobGeo || 'Worldwide') + ' · Remote',
+              deadline: deadline.toISOString().slice(0, 10),
+              verify: 'partner', local: false, premium: false,
+              tags: ['Lowongan', 'Remote'].concat(tags),
+              hadiah: 'Lihat di sumber',
+              mood: ['eksplor'],
+              source: 'Jobicy', sourceUrl: j.url || 'https://jobicy.com',
+              skills: tags, rawCategory: tags[0] || ''
+            });
+          });
+          console.log('[SURLINK] Jobicy added');
+        }
+      } catch (e) { console.warn('Jobicy', e.message); }
+
+      const seen = new Set();
+      const unique = [];
+      for (const j of liveJobs) {
+        const k = (j.title + j.organizer).toLowerCase();
+        if (seen.has(k)) continue;
+        seen.add(k); unique.push(j);
+      }
+      opportunities = local.concat(EXTRA_INTL).concat(unique);
+      console.log('[SURLINK] Total:', opportunities.length);
+      render();
+      if (unique.length) addNotif('Loaded ' + unique.length + ' lowongan remote live (Remotive & Jobicy).');
+    }
+
+    // ========== STATE ==========
+    let currentUser = JSON.parse(localStorage.getItem("surlink_user") || "null");
+    let savedIds = JSON.parse(localStorage.getItem("surlink_saved") || "[]");
+    let compareIds = JSON.parse(localStorage.getItem("surlink_compare") || "[]");
+    let appliedIds = JSON.parse(localStorage.getItem("surlink_applied") || "[]");
+    let checklist = JSON.parse(localStorage.getItem("surlink_checklist") || "{}");
+    let notifs = JSON.parse(localStorage.getItem("surlink_notifs") || "[]");
+    let currentFilter = "all", currentSub = "all", currentMood = "all", searchQ = "";
+    let profile = JSON.parse(localStorage.getItem("surlink_profile") || '{"major":"","semester":"","interests":[]}');
+
+    const FREE_SAVE_LIMIT = 5;
+    const FREE_COMPARE_LIMIT = 2;
+    const PREMIUM_COMPARE_LIMIT = 5;
+
+    // ========== HELPERS ==========
+    function isPremium() { return currentUser && currentUser.premium; }
+    function daysUntil(d) { return Math.ceil((new Date(d) - new Date()) / 86400000); }
+    function deadlineClass(d) {
+      const days = daysUntil(d);
+      if (days < 0) return "deadline-urgent";
+      if (days <= 7) return "deadline-urgent";
+      if (days <= 14) return "deadline-soon";
+      return "";
+    }
+    function deadlineText(d) {
+      const days = daysUntil(d);
+      if (days < 0) return "Sudah lewat";
+      if (days === 0) return "Hari ini!";
+      if (days === 1) return "Besok";
+      return `${days} hari lagi`;
+    }
+    function verifyLabel(v) {
+      return { kampus: "✓ Kampus", partner: "✓ Partner", komunitas: "✓ Komunitas" }[v] || v;
+    }
+    function verifyClass(v) { return "verify-" + v; }
+    function toast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg; t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2800);
+    }
+    function calcMatch(opp) {
+      let score = 40;
+      if (profile.interests.some(i => opp.tags.includes(i) || opp.type === i)) score += 25;
+      if (profile.major === "Bisnis Digital" && (opp.tags.includes("Bisnis") || opp.tags.includes("Tech") || opp.tags.includes("Startup"))) score += 15;
+      if (profile.major === "Teknik Informatika" && opp.tags.includes("Tech")) score += 18;
+      if (profile.major === "Ilmu Hukum" && opp.tags.includes("Hukum")) score += 18;
+      if (opp.local) score += 8;
+      if (daysUntil(opp.deadline) <= 14 && daysUntil(opp.deadline) >= 0) score += 5;
+      return Math.min(98, score);
+    }
+
+    // ========== AUTH ==========
+    function openAuth(mode) {
+      document.getElementById("authModal").classList.add("show");
+      switchAuth(mode || "login");
+    }
+    function switchAuth(mode) {
+      document.getElementById("tabLogin").classList.toggle("active", mode === "login");
+      document.getElementById("tabRegister").classList.toggle("active", mode === "register");
+      document.getElementById("loginForm").style.display = mode === "login" ? "block" : "none";
+      document.getElementById("registerForm").style.display = mode === "register" ? "block" : "none";
+      document.getElementById("authError").style.display = "none";
+    }
+    function doRegister() {
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const pass = document.getElementById("regPassword").value;
+      const major = document.getElementById("regMajor").value;
+      if (!name || !email || pass.length < 4) {
+        showAuthError("Lengkapi data. Password minimal 4 karakter.");
+        return;
+      }
+      const users = JSON.parse(localStorage.getItem("surlink_users") || "{}");
+      if (users[email]) { showAuthError("Email sudah terdaftar. Silakan masuk."); return; }
+      users[email] = { name, email, pass, major, premium: false, created: Date.now() };
+      localStorage.setItem("surlink_users", JSON.stringify(users));
+      currentUser = { name, email, major, premium: false };
+      localStorage.setItem("surlink_user", JSON.stringify(currentUser));
+      if (major) { profile.major = major; localStorage.setItem("surlink_profile", JSON.stringify(profile)); }
+      closeModal("authModal");
+      updateAuthUI();
+      addNotif("Selamat datang di SURLINK! Atur minat di Profil untuk rekomendasi lebih akurat.");
+      toast("Akun berhasil dibuat! 🎉");
+      render();
+    }
+    function doLogin() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const pass = document.getElementById("loginPassword").value;
+      if (!email || pass.length < 4) { showAuthError("Email & password (min 4 karakter) wajib diisi."); return; }
+      const users = JSON.parse(localStorage.getItem("surlink_users") || "{}");
+      if (users[email] && users[email].pass === pass) {
+        currentUser = { name: users[email].name, email, major: users[email].major, premium: !!users[email].premium };
+        localStorage.setItem("surlink_user", JSON.stringify(currentUser));
+        closeModal("authModal");
+        updateAuthUI();
+        toast("Selamat datang kembali, " + currentUser.name.split(" ")[0] + "!");
+        render();
+        return;
+      }
+      // Demo fallback: any email + pass >= 4
+      currentUser = { name: email.split("@")[0], email, major: "", premium: false };
+      localStorage.setItem("surlink_user", JSON.stringify(currentUser));
+      closeModal("authModal");
+      updateAuthUI();
+      toast("Berhasil masuk (demo mode)");
+      render();
+    }
+    function showAuthError(msg) {
+      const el = document.getElementById("authError");
+      el.textContent = msg; el.style.display = "block";
+    }
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem("surlink_user");
+      updateAuthUI();
+      closeDrawer();
+      toast("Berhasil keluar");
+      render();
+    }
+    function updateAuthUI() {
+      if (currentUser) {
+        document.getElementById("authArea").style.display = "none";
+        document.getElementById("userArea").style.display = "block";
+        document.getElementById("userNameLabel").textContent = currentUser.name.split(" ")[0];
+        document.getElementById("userAvatar").textContent = currentUser.name.charAt(0).toUpperCase();
+        document.getElementById("premiumBadge").style.display = currentUser.premium ? "inline" : "none";
+      } else {
+        document.getElementById("authArea").style.display = "flex";
+        document.getElementById("userArea").style.display = "none";
+      }
+    }
+    function activatePremium() {
+      if (!currentUser) { closeModal("premiumModal"); openAuth("login"); toast("Login dulu untuk upgrade"); return; }
+      currentUser.premium = true;
+      localStorage.setItem("surlink_user", JSON.stringify(currentUser));
+      const users = JSON.parse(localStorage.getItem("surlink_users") || "{}");
+      if (users[currentUser.email]) { users[currentUser.email].premium = true; localStorage.setItem("surlink_users", JSON.stringify(users)); }
+      closeModal("premiumModal");
+      updateAuthUI();
+      addNotif("🎉 Selamat! Kamu sekarang Premium. Semua fitur terbuka.");
+      toast("Premium aktif! Semua fitur terbuka ✨");
+      render();
+    }
+    function openPremium() { document.getElementById("premiumModal").classList.add("show"); }
+
+    // ========== FILTERS & RENDER ==========
+    function setFilter(f, btn) {
+      currentFilter = f; currentSub = "all";
+      document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      document.querySelectorAll(".subfilter-wrap").forEach(w => w.classList.remove("show"));
+      if (f === "Lomba") document.getElementById("subLomba").classList.add("show");
+      if (f === "Beasiswa") document.getElementById("subBeasiswa").classList.add("show");
+      if (f === "Magang") document.getElementById("subMagang").classList.add("show");
+      document.querySelectorAll(".subfilter-chip").forEach(c => c.classList.toggle("active", c.dataset.sub === "all"));
+      render();
+    }
+    function setSub(s, btn) {
+      currentSub = s;
+      const parent = btn.parentElement;
+      parent.querySelectorAll(".subfilter-chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      render();
+    }
+    function setMood(m, btn) {
+      currentMood = m;
+      document.querySelectorAll(".mood-chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      render();
+    }
+    function onSearch() { searchQ = document.getElementById("searchInput").value.toLowerCase(); render(); }
+
+    function getFiltered() {
+      return opportunities.filter(o => {
+        if (daysUntil(o.deadline) < -3) return false; // hide long expired
+        if (currentFilter !== "all" && o.type !== currentFilter) return false;
+        if (currentSub !== "all" && o.scope !== currentSub) return false;
+        if (currentMood === "lokal" && !o.local) return false;
+        if (currentMood === "ambisius" && !(o.mood || []).includes("ambisius")) return false;
+        if (currentMood === "eksplor" && !(o.mood || []).includes("eksplor")) return false;
+        if (currentMood === "santai" && !(o.mood || []).includes("santai")) return false;
+        if (searchQ) {
+          const hay = (o.title + o.desc + o.organizer + o.tags.join(" ")).toLowerCase();
+          if (!hay.includes(searchQ)) return false;
+        }
+        if (profile.interests.length && currentFilter === "all" && !searchQ) {
+          // soft preference only when no hard filter
+        }
+        // Premium-only listings: freemium users still see but with lock on apply detail
+        return true;
+      }).sort((a, b) => {
+        // premium users see premium listings first slightly; otherwise by deadline
+        const da = daysUntil(a.deadline), db = daysUntil(b.deadline);
+        if (da < 0 && db >= 0) return 1;
+        if (db < 0 && da >= 0) return -1;
+        return da - db;
+      });
+    }
+
+    function render() {
+      const list = getFiltered();
+      const grid = document.getElementById("cardsGrid");
+      const empty = document.getElementById("emptyState");
+      document.getElementById("resultCount").textContent = list.length + " peluang";
+      const activeN = opportunities.filter(o => daysUntil(o.deadline) >= 0).length;
+      document.getElementById("statActive").textContent = activeN;
+
+      // counts
+      ["all","Beasiswa","Lomba","Magang","Volunteer","Pelatihan","Lowongan"].forEach(t => {
+        const n = opportunities.filter(o => (t === "all" || o.type === t) && daysUntil(o.deadline) >= -3).length;
+        const el = document.getElementById("count-" + t);
+        if (el) el.textContent = n;
+      });
+
+      // urgent
+      const urgent = opportunities.filter(o => { const d = daysUntil(o.deadline); return d >= 0 && d <= 14; }).length;
+      document.getElementById("urgentCount").textContent = urgent;
+
+      // limit banner
+      const limitEl = document.getElementById("limitBanner");
+      limitEl.style.display = (!isPremium() && savedIds.length >= FREE_SAVE_LIMIT) ? "block" : "none";
+
+      // compare btn
+      document.getElementById("compareBtn").style.display = compareIds.length >= 2 ? "inline-flex" : "none";
+      document.getElementById("compareCount").textContent = compareIds.length;
+
+      // saved badge
+      const sb = document.getElementById("savedBadge");
+      sb.style.display = savedIds.length ? "grid" : "none";
+      sb.textContent = savedIds.length;
+
+      // notif badge
+      const nb = document.getElementById("notifBadge");
+      const unread = notifs.filter(n => !n.read).length;
+      nb.style.display = unread ? "grid" : "none";
+      nb.textContent = unread;
+
+      updateDigest();
+
+      if (!list.length) { grid.innerHTML = ""; empty.style.display = "block"; return; }
+      empty.style.display = "none";
+      grid.innerHTML = list.map(o => {
+        const match = calcMatch(o);
+        const saved = savedIds.includes(o.id);
+        const isPremListing = o.premium && !isPremium();
+        return `<div class="card" onclick="openDetail(${o.id})">
+          ${isPremListing ? '<span class="premium-only-tag">PREMIUM</span>' : ''}${o.source && o.source !== 'Kurasi' ? '<span class="api-badge" style="position:absolute;top:.7rem;left:.7rem">LIVE API</span>' : ''}
+          <div class="card-top">
+            <span class="card-type ${o.type}">${o.type}</span>
+            <span class="card-match">${match}% match</span>
+          </div>
+          <div class="card-title">${o.title}</div>
+          <div class="card-desc">${o.desc}</div>
+          <div class="card-meta">
+            <span>📅 <span class="${deadlineClass(o.deadline)}">${deadlineText(o.deadline)}</span></span>
+            <span>📍 ${o.location.split("+")[0].trim()}</span>
+            ${o.local ? "<span>🏝️ Lokal</span>" : ""}
+          </div>
+          <div class="card-footer">
+            <span class="verify-badge ${verifyClass(o.verify)}">${verifyLabel(o.verify)}</span>
+            <button class="save-btn ${saved ? "saved" : ""}" onclick="event.stopPropagation();toggleSave(${o.id})" title="Simpan">${saved ? "⭐" : "☆"}</button>
+          </div>
+        </div>`;
+      }).join("");
+    }
+
+    function updateDigest() {
+      const el = document.getElementById("digestContent");
+      if (!currentUser) {
+        el.innerHTML = `<p style="font-size:.85rem;color:var(--text-muted)">Login & atur profil untuk mendapatkan ringkasan peluang yang paling relevan hari ini.</p>
+          <button class="btn btn-primary" style="margin-top:.5rem" onclick="openAuth('login')">Masuk / Daftar</button>`;
+        return;
+      }
+      const top = getFiltered().slice(0, 3);
+      if (!isPremium()) {
+        el.innerHTML = `<div class="digest-locked">
+          <p style="font-size:.85rem">🎯 Top match: ${top[0] ? top[0].title : "—"}</p>
+          <p style="font-size:.85rem">⏰ Deadline terdekat: ${top.filter(o=>daysUntil(o.deadline)<=7).length} peluang minggu ini</p>
+          <p style="font-size:.85rem">🏝️ Lokal Babel: ${opportunities.filter(o=>o.local && daysUntil(o.deadline)>=0).length} aktif</p>
+        </div>
+        <div class="lock-overlay">
+          <p style="font-size:.82rem;font-weight:600">🔒 Smart Digest tersedia di Premium</p>
+          <button class="btn btn-premium" onclick="openPremium()">Upgrade Premium</button>
+        </div>`;
+        return;
+      }
+      el.innerHTML = `
+        <p style="font-size:.85rem;margin-bottom:.4rem">Halo <strong>${currentUser.name.split(" ")[0]}</strong>! Berikut fokus hari ini:</p>
+        <ul style="font-size:.85rem;padding-left:1.1rem;margin:0">
+          ${top.map(o => `<li style="margin-bottom:.25rem"><strong>${o.title}</strong> — ${deadlineText(o.deadline)} · ${calcMatch(o)}% match</li>`).join("") || "<li>Tidak ada peluang aktif saat ini</li>"}
+        </ul>
+        <p style="font-size:.78rem;color:var(--text-muted);margin-top:.5rem">💡 Tips: Lengkapi checklist di detail peluang sebelum mendaftar.</p>`;
+    }
+
+    function openDetail(id) {
+      const o = opportunities.find(x => x.id === id);
+      if (!o) return;
+      if (o.premium && !isPremium()) {
+        openPremium();
+        toast("Peluang ini eksklusif Premium");
+        return;
+      }
+      const match = calcMatch(o);
+      const saved = savedIds.includes(o.id);
+      const inCompare = compareIds.includes(o.id);
+      const applied = appliedIds.includes(o.id);
+      const checks = checklist[id] || { cv: false, surat: false, portfolio: false, deadline: false };
+
+      document.getElementById("detailContent").innerHTML = `
+        <button class="modal-close" onclick="closeModal('detailModal')">×</button>
+        <span class="card-type ${o.type}">${o.type} · ${o.scope}</span>
+        <h2 style="margin-top:.5rem">${o.title}</h2>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:.8rem">${o.desc}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.82rem;margin-bottom:1rem">
+          <div><strong>Penyelenggara</strong><br>${o.organizer}</div>
+          <div><strong>Lokasi</strong><br>${o.location}</div>
+          <div><strong>Deadline</strong><br><span class="${deadlineClass(o.deadline)}">${o.deadline} (${deadlineText(o.deadline)})</span></div>
+          <div><strong>Hadiah / Benefit</strong><br>${o.hadiah || "—"}</div>
+          <div><strong>Verifikasi</strong><br><span class="verify-badge ${verifyClass(o.verify)}">${verifyLabel(o.verify)}</span></div>
+          <div><strong>Match Score</strong><br>${match}%</div>
+        </div>
+        ${o.type === 'Lowongan' ? `
+        <div class="job-analysis">
+          <h4>📊 Analisis Lowongan</h4>
+          <p><strong>Tipe:</strong> ${o.scope} · <strong>Sumber API:</strong> ${o.source || '—'}</p>
+          <p style="margin-top:.35rem"><strong>Skill / tag:</strong><br>
+            ${(o.skills || o.tags || []).slice(0,8).map(s => '<span class="skill-tag">'+s+'</span>').join(' ') || '—'}
+          </p>
+          <p style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)">
+            Match score profil kamu: <strong>${match}%</strong>. Cocokkan skill di atas dengan CV sebelum apply.
+          </p>
+          ${o.sourceUrl ? '<p class="source-note">Data live dari <a href="'+o.sourceUrl+'" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600">'+(o.source||'sumber')+'</a> — verifikasi di situs resmi sebelum mendaftar. Attribution required by API terms.</p>' : ''}
+        </div>` : ''}
+        ${o.sourceUrl && o.type !== 'Lowongan' ? `<p class="source-note">Info: <a href="${o.sourceUrl}" target="_blank" rel="noopener" style="color:var(--primary)">${o.sourceUrl}</a></p>` : ''}
+        ${isPremium() ? `
+        <div style="background:var(--primary-soft);border-radius:10px;padding:.9rem;margin-bottom:1rem">
+          <strong style="font-size:.85rem">📋 Checklist Persiapan Daftar</strong>
+          <ul class="checklist">
+            <li><input type="checkbox" ${checks.cv?"checked":""} onchange="toggleCheck(${id},'cv',this.checked)"> Siapkan CV / biodata terbaru</li>
+            <li><input type="checkbox" ${checks.surat?"checked":""} onchange="toggleCheck(${id},'surat',this.checked)"> Surat motivasi / essay (jika perlu)</li>
+            <li><input type="checkbox" ${checks.portfolio?"checked":""} onchange="toggleCheck(${id},'portfolio',this.checked)"> Portfolio / bukti prestasi</li>
+            <li><input type="checkbox" ${checks.deadline?"checked":""} onchange="toggleCheck(${id},'deadline',this.checked)"> Set reminder di kalender HP</li>
+          </ul>
+        </div>` : `
+        <div style="background:var(--premium-soft);border-radius:10px;padding:.9rem;margin-bottom:1rem;text-align:center">
+          <p style="font-size:.82rem;margin-bottom:.4rem">🔒 Checklist persiapan & reminder lanjutan tersedia di Premium</p>
+          <button class="btn btn-premium" onclick="openPremium()">Lihat Premium</button>
+        </div>`}
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="toggleSave(${id});openDetail(${id})">${saved ? "★ Tersimpan" : "☆ Simpan"}</button>
+          <button class="btn btn-outline" onclick="toggleCompare(${id});openDetail(${id})">${inCompare ? "✓ Di bandingkan" : "⚖️ Bandingkan"}</button>
+          <button class="btn ${applied ? "btn-outline" : "btn-primary"}" onclick="markApplied(${id})">${applied ? "✓ Sudah daftar" : "Tandai sudah daftar"}</button>
+          <button class="btn btn-outline" onclick="shareOpp(${id})">🔗 Bagikan</button>
+        </div>
+      `;
+      document.getElementById("detailModal").classList.add("show");
+    }
+
+    function toggleSave(id) {
+      if (!currentUser) { openAuth("login"); toast("Login dulu untuk menyimpan"); return; }
+      const idx = savedIds.indexOf(id);
+      if (idx >= 0) {
+        savedIds.splice(idx, 1);
+        toast("Dihapus dari tersimpan");
+      } else {
+        if (!isPremium() && savedIds.length >= FREE_SAVE_LIMIT) {
+          document.getElementById("limitBanner").style.display = "block";
+          openPremium();
+          toast("Batas simpan freemium tercapai");
+          return;
+        }
+        savedIds.push(id);
+        toast("Disimpan ⭐");
+        const o = opportunities.find(x => x.id === id);
+        if (o) addNotif(`Reminder: "${o.title}" deadline ${deadlineText(o.deadline)}`);
+      }
+      localStorage.setItem("surlink_saved", JSON.stringify(savedIds));
+      render();
+    }
+    function toggleCompare(id) {
+      const idx = compareIds.indexOf(id);
+      const limit = isPremium() ? PREMIUM_COMPARE_LIMIT : FREE_COMPARE_LIMIT;
+      if (idx >= 0) {
+        compareIds.splice(idx, 1);
+      } else {
+        if (compareIds.length >= limit) {
+          if (!isPremium()) openPremium();
+          toast(`Maksimal bandingkan ${limit} item` + (isPremium() ? "" : " (upgrade untuk 5)"));
+          return;
+        }
+        compareIds.push(id);
+      }
+      localStorage.setItem("surlink_compare", JSON.stringify(compareIds));
+      render();
+    }
+    function markApplied(id) {
+      if (!appliedIds.includes(id)) {
+        appliedIds.push(id);
+        localStorage.setItem("surlink_applied", JSON.stringify(appliedIds));
+        toast("Ditandai sudah daftar ✓");
+        addNotif("Kamu menandai sudah mendaftar. Semoga berhasil!");
+      }
+      openDetail(id);
+    }
+    function toggleCheck(id, key, val) {
+      if (!checklist[id]) checklist[id] = {};
+      checklist[id][key] = val;
+      localStorage.setItem("surlink_checklist", JSON.stringify(checklist));
+    }
+    function shareOpp(id) {
+      const o = opportunities.find(x => x.id === id);
+      const text = `${o.title}\nDeadline: ${o.deadline}\nVia SURLINK — peluang mahasiswa UBB`;
+      if (navigator.share) navigator.share({ title: o.title, text });
+      else { navigator.clipboard.writeText(text); toast("Disalin ke clipboard"); }
+    }
+    function openCompare() {
+      if (compareIds.length < 2) return;
+      const items = compareIds.map(id => opportunities.find(o => o.id === id)).filter(Boolean);
+      document.getElementById("detailContent").innerHTML = `
+        <button class="modal-close" onclick="closeModal('detailModal')">×</button>
+        <h2>⚖️ Bandingkan Peluang</h2>
+        <div style="overflow-x:auto">
+          <table style="width:100%;font-size:.8rem;border-collapse:collapse;margin-top:.8rem">
+            <tr style="background:var(--bg)">
+              <th style="padding:.5rem;text-align:left">Aspek</th>
+              ${items.map(o => `<th style="padding:.5rem;text-align:left;min-width:120px">${o.title.slice(0,40)}...</th>`).join("")}
+            </tr>
+            <tr><td style="padding:.4rem;font-weight:600">Tipe</td>${items.map(o=>`<td style="padding:.4rem">${o.type}</td>`).join("")}</tr>
+            <tr><td style="padding:.4rem;font-weight:600">Deadline</td>${items.map(o=>`<td style="padding:.4rem">${o.deadline}<br><small>${deadlineText(o.deadline)}</small></td>`).join("")}</tr>
+            <tr><td style="padding:.4rem;font-weight:600">Lokasi</td>${items.map(o=>`<td style="padding:.4rem">${o.location}</td>`).join("")}</tr>
+            <tr><td style="padding:.4rem;font-weight:600">Hadiah</td>${items.map(o=>`<td style="padding:.4rem">${o.hadiah||"—"}</td>`).join("")}</tr>
+            <tr><td style="padding:.4rem;font-weight:600">Match</td>${items.map(o=>`<td style="padding:.4rem">${calcMatch(o)}%</td>`).join("")}</tr>
+            <tr><td style="padding:.4rem;font-weight:600">Verifikasi</td>${items.map(o=>`<td style="padding:.4rem">${verifyLabel(o.verify)}</td>`).join("")}</tr>
+          </table>
+        </div>
+        <button class="btn btn-outline" style="margin-top:1rem" onclick="compareIds=[];localStorage.setItem('surlink_compare','[]');closeModal('detailModal');render()">Hapus semua perbandingan</button>
+      `;
+      document.getElementById("detailModal").classList.add("show");
+    }
+
+    // ========== DRAWER ==========
+    function openDrawer(type) {
+      const body = document.getElementById("drawerBody");
+      const title = document.getElementById("drawerTitle");
+      if (type === "saved") {
+        title.textContent = "⭐ Tersimpan";
+        if (!savedIds.length) body.innerHTML = `<p style="color:var(--text-muted);font-size:.85rem">Belum ada peluang tersimpan.</p>`;
+        else body.innerHTML = savedIds.map(id => {
+          const o = opportunities.find(x => x.id === id);
+          if (!o) return "";
+          return `<div style="padding:.7rem 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="closeDrawer();openDetail(${id})">
+            <div style="font-weight:600;font-size:.88rem">${o.title}</div>
+            <div style="font-size:.75rem;color:var(--text-muted)">${o.type} · ${deadlineText(o.deadline)}</div>
+          </div>`;
+        }).join("");
+      } else if (type === "notif") {
+        title.textContent = "🔔 Notifikasi";
+        notifs.forEach(n => n.read = true);
+        localStorage.setItem("surlink_notifs", JSON.stringify(notifs));
+        render();
+        if (!notifs.length) body.innerHTML = `<p style="color:var(--text-muted);font-size:.85rem">Belum ada notifikasi.</p>`;
+        else body.innerHTML = notifs.slice().reverse().map(n => `
+          <div style="padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.85rem">
+            <div>${n.text}</div>
+            <div style="font-size:.7rem;color:var(--text-muted);margin-top:.2rem">${new Date(n.time).toLocaleString("id")}</div>
+          </div>`).join("");
+      } else if (type === "profile") {
+        title.textContent = "👤 Akun Saya";
+        body.innerHTML = `
+          <div class="dash-grid">
+            <div class="dash-stat"><strong>${savedIds.length}</strong><span>Tersimpan</span></div>
+            <div class="dash-stat"><strong>${appliedIds.length}</strong><span>Sudah daftar</span></div>
+            <div class="dash-stat"><strong>${isPremium() ? "PRO" : "Free"}</strong><span>Paket</span></div>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:.5rem"><strong>${currentUser.name}</strong><br><span style="color:var(--text-muted)">${currentUser.email}</span></p>
+          ${!isPremium() ? `<button class="btn btn-premium" style="width:100%;margin-bottom:.5rem" onclick="closeDrawer();openPremium()">Upgrade Premium</button>` : `<p style="font-size:.82rem;color:var(--success);margin-bottom:.5rem">✓ Premium aktif</p>`}
+          <button class="btn btn-outline" style="width:100%;margin-bottom:.5rem" onclick="closeDrawer();toggleProfile()">Atur Preferensi</button>
+          <button class="btn btn-danger" style="width:100%" onclick="logout()">Keluar</button>
+        `;
+      }
+      document.getElementById("drawer").classList.add("show");
+      document.getElementById("drawerOverlay").classList.add("show");
+    }
+    function closeDrawer() {
+      document.getElementById("drawer").classList.remove("show");
+      document.getElementById("drawerOverlay").classList.remove("show");
+    }
+    function addNotif(text) {
+      notifs.push({ text, time: Date.now(), read: false });
+      if (notifs.length > 30) notifs = notifs.slice(-30);
+      localStorage.setItem("surlink_notifs", JSON.stringify(notifs));
+    }
+
+    // ========== PROFILE ==========
+    function toggleProfile() { document.getElementById("profilePanel").classList.toggle("show"); }
+    function saveProfile() {
+      profile.major = document.getElementById("profileMajor").value;
+      profile.semester = document.getElementById("profileSemester").value;
+      localStorage.setItem("surlink_profile", JSON.stringify(profile));
+      render();
+    }
+    function initInterests() {
+      document.querySelectorAll(".interest-tag").forEach(tag => {
+        tag.classList.toggle("active", profile.interests.includes(tag.dataset.val));
+        tag.onclick = () => {
+          const v = tag.dataset.val;
+          const i = profile.interests.indexOf(v);
+          if (i >= 0) profile.interests.splice(i, 1); else profile.interests.push(v);
+          tag.classList.toggle("active");
+          localStorage.setItem("surlink_profile", JSON.stringify(profile));
+          render();
+        };
+      });
+      if (profile.major) document.getElementById("profileMajor").value = profile.major;
+      if (profile.semester) document.getElementById("profileSemester").value = profile.semester;
+    }
+
+    // ========== UTILS ==========
+    function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute("data-theme") === "dark" ? "" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("surlink_theme", next);
+    }
+
+    // ========== INIT ==========
+    document.getElementById("detailModal").addEventListener("click", e => { if (e.target.id === "detailModal") closeModal("detailModal"); });
+    document.getElementById("authModal").addEventListener("click", e => { if (e.target.id === "authModal") closeModal("authModal"); });
+    document.getElementById("premiumModal").addEventListener("click", e => { if (e.target.id === "premiumModal") closeModal("premiumModal"); });
+
+    if (localStorage.getItem("surlink_theme") === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    updateAuthUI();
+    initInterests();
+    loadOpportunities();
+  </script>
+</body>
+</html>
