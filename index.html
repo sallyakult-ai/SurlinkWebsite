@@ -192,7 +192,253 @@
       .nav-search { display: none; }
       .hero h1 { font-size: 1.35rem; }
       .cards-grid { grid-template-columns: 1fr; }
+      .feature-strip { grid-template-columns: 1fr 1fr; }
+      .floating-help { bottom: 1rem; right: 1rem; width: 46px; height: 46px; }
     }
+
+    /* ===== ORNAMENTS & LONG-TERM FEATURES ===== */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 70%);
+      top: -80px; right: -60px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,158,11,.2) 0%, transparent 70%);
+      bottom: -40px; left: 10%;
+      pointer-events: none;
+    }
+    .ornament-line {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary-light), var(--accent), var(--primary-light), transparent);
+      border-radius: 2px;
+      margin: 0.4rem 0 1rem;
+      opacity: .55;
+    }
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: .75rem;
+      margin-bottom: 1.2rem;
+    }
+    .feature-tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: .9rem 1rem;
+      cursor: pointer;
+      transition: .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-tile:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .feature-tile::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 4px 0 0 4px;
+    }
+    .feature-tile strong { display: block; font-size: .88rem; margin-bottom: .2rem; }
+    .feature-tile span { font-size: .75rem; color: var(--text-muted); }
+    .feature-tile .tile-icon { font-size: 1.3rem; margin-bottom: .35rem; }
+
+    .timeline-panel, .skill-panel, .goal-panel, .export-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+    .timeline-panel.show, .skill-panel.show, .goal-panel.show, .export-panel.show { display: block; }
+
+    .timeline-item {
+      display: flex;
+      gap: .8rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .timeline-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      margin-top: .35rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px var(--primary-soft);
+    }
+    .timeline-dot.urgent { background: var(--danger); box-shadow: 0 0 0 4px #fee2e2; }
+    .timeline-dot.soon { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+    .skill-bar-wrap { margin: .5rem 0; }
+    .skill-bar-label { display: flex; justify-content: space-between; font-size: .78rem; margin-bottom: .25rem; }
+    .skill-bar-bg {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      transition: width .4s;
+    }
+
+    .goal-card {
+      background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: .6rem;
+      border: 1px solid var(--border);
+    }
+    .badge-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+    .ach-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .25rem .55rem;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+    .ach-badge.earned {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .ach-badge.gold {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #b45309;
+    }
+
+    .floating-help {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 150;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(49,112,164,.35);
+      transition: .2s;
+    }
+    .floating-help:hover { transform: scale(1.08); }
+
+    .tips-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+    }
+    .tips-card .tip-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-soft), #fde68a);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .view-toggle {
+      display: flex;
+      gap: .3rem;
+      margin-bottom: .8rem;
+    }
+    .view-toggle button {
+      padding: .35rem .75rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      font-size: .75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text-muted);
+    }
+    .view-toggle button.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Live status & trust */
+    .live-bar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .6rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: .65rem 1rem; margin-bottom: 1rem;
+      font-size: .78rem;
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--success);
+      box-shadow: 0 0 0 3px rgba(16,185,129,.25);
+      animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+    .live-dot.off { background: var(--text-muted); box-shadow: none; animation: none; }
+    .live-dot.warn { background: var(--accent); box-shadow: 0 0 0 3px rgba(245,158,11,.25); }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .55; transform: scale(.85); }
+    }
+    .live-bar .live-meta { color: var(--text-muted); flex: 1; min-width: 140px; }
+    .trust-chip {
+      display: inline-flex; align-items: center; gap: .25rem;
+      padding: .2rem .5rem; border-radius: 6px; font-size: .68rem; font-weight: 700;
+      background: #ecfdf5; color: #047857;
+    }
+    [data-theme="dark"] .trust-chip { background: #064e3b; color: #6ee7b7; }
+    .source-chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .source-chip {
+      font-size: .68rem; font-weight: 600; padding: .2rem .5rem; border-radius: 999px;
+      background: var(--bg); border: 1px solid var(--border); color: var(--text-muted);
+    }
+    .source-chip.live { border-color: #0ea5e9; color: #0369a1; background: #e0f2fe; }
+    .refresh-btn {
+      padding: .35rem .7rem; border-radius: 999px; border: 1.5px solid var(--border);
+      background: var(--bg); font-size: .75rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; color: var(--primary);
+    }
+    .refresh-btn:hover { background: var(--primary-soft); }
+    .refresh-btn:disabled { opacity: .5; cursor: wait; }
+    .loading-banner {
+      display: none; text-align: center; padding: 1rem; color: var(--text-muted);
+      font-size: .85rem; margin-bottom: .8rem;
+    }
+    .loading-banner.show { display: block; }
+    .note-input {
+      width: 100%; padding: .45rem .7rem; border: 1.5px solid var(--border);
+      border-radius: 8px; background: var(--bg); color: var(--text);
+      font-size: .8rem; font-family: inherit; margin-top: .4rem;
+    }
+    .quick-filters { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .8rem; }
+    .quick-chip {
+      padding: .3rem .65rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--card); font-size: .72rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; color: var(--text-muted);
+    }
+    .quick-chip.active { border-color: var(--success); color: #047857; background: #ecfdf5; }
   </style>
 </head>
 <body>
@@ -307,6 +553,118 @@
       <div><strong>Fokus Minggu Ini:</strong> Ada <span id="urgentCount">0</span> peluang dengan deadline ≤ 14 hari. Prioritaskan ini dulu!</div>
     </div>
 
+    <div class="ornament-line"></div>
+
+    <!-- LIVE STATUS BAR -->
+    <div class="live-bar" id="liveBar">
+      <span class="live-dot off" id="liveDot" title="Status data"></span>
+      <span class="live-meta" id="liveMeta">Menyiapkan data peluang…</span>
+      <div class="source-chips" id="sourceChips">
+        <span class="source-chip">Kurasi UBB</span>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="refreshLiveData()" title="Muat ulang data live">↻ Segarkan</button>
+    </div>
+    <div class="loading-banner" id="loadingBanner">⏳ Mengambil lowongan remote real-time dari sumber terpercaya…</div>
+
+    <!-- LONG-TERM TOOLS STRIP -->
+    <div class="feature-strip">
+      <div class="feature-tile" onclick="togglePanel('timelinePanel')">
+        <div class="tile-icon">📅</div>
+        <strong>Timeline Deadline</strong>
+        <span>Urutan peluang 30 hari — prioritasi agar tidak terlewat</span>
+      </div>
+      <div class="feature-tile" onclick="togglePanel('skillPanel')">
+        <div class="tile-icon">📈</div>
+        <strong>Skill Tracker</strong>
+        <span>Skill paling sering diminta di peluang aktif</span>
+      </div>
+      <div class="feature-tile" onclick="togglePanel('goalPanel')">
+        <div class="tile-icon">🎯</div>
+        <strong>Target & Badge</strong>
+        <span>Target daftar mingguan + pencapaian tersimpan</span>
+      </div>
+      <div class="feature-tile" onclick="togglePanel('exportPanel')">
+        <div class="tile-icon">📤</div>
+        <strong>Ekspor & Arsip</strong>
+        <span>TXT/CSV untuk CV, laporan, dan dosen</span>
+      </div>
+    </div>
+
+    <!-- TIMELINE PANEL -->
+    <div class="timeline-panel" id="timelinePanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <h3 style="font-size:1rem;font-weight:700">📅 Timeline Deadline (30 hari ke depan)</h3>
+        <button class="nav-btn nav-btn-ghost" onclick="togglePanel('timelinePanel')">Tutup ✕</button>
+      </div>
+      <p class="section-sub">Urutan kronologis membantu prioritasi. Data tersimpan di perangkatmu.</p>
+      <div id="timelineList"></div>
+    </div>
+
+    <!-- SKILL PANEL -->
+    <div class="skill-panel" id="skillPanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <h3 style="font-size:1rem;font-weight:700">📈 Skill Tracker — Skill yang paling sering diminta</h3>
+        <button class="nav-btn nav-btn-ghost" onclick="togglePanel('skillPanel')">Tutup ✕</button>
+      </div>
+      <p class="section-sub">Berdasarkan tag peluang aktif. Gunakan untuk memprioritaskan belajar & portofolio jangka panjang.</p>
+      <div id="skillBars"></div>
+      <p style="font-size:.75rem;color:var(--text-muted);margin-top:.6rem">💡 Tip: skill dengan batang tinggi = sering muncul di lowongan/lomba. Lengkapi di CV & LinkedIn.</p>
+    </div>
+
+    <!-- GOAL PANEL -->
+    <div class="goal-panel" id="goalPanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <h3 style="font-size:1rem;font-weight:700">🎯 Target & Badge Pencapaian</h3>
+        <button class="nav-btn nav-btn-ghost" onclick="togglePanel('goalPanel')">Tutup ✕</button>
+      </div>
+      <div class="goal-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+          <strong style="font-size:.9rem">Target daftar minggu ini</strong>
+          <span id="goalProgress" style="font-size:.85rem;font-weight:700;color:var(--primary)">0 / 3</span>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" id="goalBar" style="width:0%"></div></div>
+        <div style="margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="setWeeklyGoal(3)">Target 3</button>
+          <button class="btn btn-outline" onclick="setWeeklyGoal(5)">Target 5</button>
+          <button class="btn btn-outline" onclick="setWeeklyGoal(1)">Target 1</button>
+        </div>
+      </div>
+      <p style="font-size:.82rem;font-weight:600;margin-bottom:.4rem">Badge yang bisa diraih</p>
+      <div class="badge-row" id="badgeRow">
+        <span class="ach-badge" id="badge-first">🌱 First Apply</span>
+        <span class="ach-badge" id="badge-saver">⭐ Kolektor 5</span>
+        <span class="ach-badge" id="badge-week">🔥 Target Minggu</span>
+        <span class="ach-badge" id="badge-local">🏝️ Lokal Explorer</span>
+        <span class="ach-badge" id="badge-profile">👤 Profil Lengkap</span>
+      </div>
+      <p style="font-size:.75rem;color:var(--text-muted);margin-top:.6rem">Badge tersimpan di perangkat. Cocok untuk motivasi konsisten tiap semester.</p>
+    </div>
+
+    <!-- EXPORT PANEL -->
+    <div class="export-panel" id="exportPanel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <h3 style="font-size:1rem;font-weight:700">📤 Ekspor & Arsip Peluang</h3>
+        <button class="nav-btn nav-btn-ghost" onclick="togglePanel('exportPanel')">Tutup ✕</button>
+      </div>
+      <p class="section-sub">Simpan jejak peluang untuk laporan PKM, CV, atau portofolio semester. Data tidak hilang meski browser ditutup.</p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="btn btn-primary" onclick="exportSaved('txt')">📄 Unduh daftar tersimpan (.txt)</button>
+        <button class="btn btn-outline" onclick="exportSaved('csv')">📊 Unduh CSV (Excel)</button>
+        <button class="btn btn-outline" onclick="exportApplied()">✓ Unduh yang sudah didaftar</button>
+        <button class="btn btn-outline" onclick="copySavedClipboard()">🔗 Salin ke clipboard</button>
+      </div>
+      <p style="font-size:.75rem;color:var(--text-muted);margin-top:.7rem">File berisi judul, tipe, deadline, penyelenggara — siap dilampirkan ke laporan atau dikirim ke dosen/pembimbing.</p>
+    </div>
+
+    <!-- TIPS OF THE DAY -->
+    <div class="tips-card" id="tipsCard">
+      <div class="tip-icon">💡</div>
+      <div>
+        <strong style="font-size:.88rem" id="tipTitle">Tips hari ini</strong>
+        <p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem" id="tipBody">Atur preferensi jurusan & minat agar Match Score lebih akurat.</p>
+      </div>
+    </div>
+
     <!-- LIMIT BANNER (freemium) -->
     <div class="limit-banner" id="limitBanner">
       ⚠️ Kamu sudah mencapai batas simpan freemium (5 peluang). <a href="#" onclick="openPremium();return false" style="color:#991b1b;font-weight:700;text-decoration:underline">Upgrade ke Premium</a> untuk simpan unlimited.
@@ -318,6 +676,14 @@
       <div id="digestContent">
         <p style="font-size:.85rem;color:var(--text-muted)">Login & atur profil untuk mendapatkan ringkasan peluang yang paling relevan hari ini.</p>
       </div>
+    </div>
+
+    <!-- QUICK TRUST FILTERS -->
+    <div class="quick-filters">
+      <button class="quick-chip" id="qfVerified" onclick="toggleQuick('verified',this)">✓ Hanya terverifikasi</button>
+      <button class="quick-chip" id="qfLive" onclick="toggleQuick('live',this)">🔴 Live API</button>
+      <button class="quick-chip" id="qfLocal" onclick="toggleQuick('localOnly',this)">🏝️ Lokal Babel</button>
+      <button class="quick-chip" id="qfUrgent" onclick="toggleQuick('urgent',this)">⏰ ≤7 hari</button>
     </div>
 
     <!-- FILTERS -->
@@ -498,13 +864,41 @@
 
     let opportunities = [...EMBEDDED_OPPORTUNITIES];
 
+    // ========== STATE (harus sebelum loadOpportunities / render) ==========
+    let currentUser = JSON.parse(localStorage.getItem("surlink_user") || "null");
+    let savedIds = JSON.parse(localStorage.getItem("surlink_saved") || "[]");
+    let compareIds = JSON.parse(localStorage.getItem("surlink_compare") || "[]");
+    let appliedIds = JSON.parse(localStorage.getItem("surlink_applied") || "[]");
+    let checklist = JSON.parse(localStorage.getItem("surlink_checklist") || "{}");
+    let notifs = JSON.parse(localStorage.getItem("surlink_notifs") || "[]");
+    let currentFilter = "all", currentSub = "all", currentMood = "all", searchQ = "";
+    let profile = JSON.parse(localStorage.getItem("surlink_profile") || '{"major":"","semester":"","interests":[]}');
+    let weeklyGoal = parseInt(localStorage.getItem("surlink_weekly_goal") || "3", 10);
+    let badges = JSON.parse(localStorage.getItem("surlink_badges") || "{}");
+    let saveNotes = JSON.parse(localStorage.getItem("surlink_notes") || "{}");
+    let quickFlags = { verified: false, live: false, localOnly: false, urgent: false };
+    let liveStatus = { remotive: 0, jobicy: 0, lastAt: null, ok: false, loading: false };
+    let curatedBase = [];
+    let extraIntl = [];
+
+    const FREE_SAVE_LIMIT = 5;
+    const FREE_COMPARE_LIMIT = 2;
+    const PREMIUM_COMPARE_LIMIT = 5;
+
     // ========== API-READY LOADER ==========
     // Coba load dari opportunities.json (bisa diganti endpoint API nyata nanti).
     // Fallback ke data embedded jika gagal (offline / CORS / GitHub Pages path).
-    async function loadOpportunities() {
+    async function loadOpportunities(isRefresh) {
+      liveStatus.loading = true;
+      updateLiveBar();
+      const loadEl = document.getElementById("loadingBanner");
+      if (loadEl) loadEl.classList.add("show");
+      const btn = document.getElementById("refreshBtn");
+      if (btn) btn.disabled = true;
+
       // Local curated beasiswa/lomba/magang/volunteer/pelatihan + international
       let local = [...EMBEDDED_OPPORTUNITIES];
-      const EXTRA_INTL = [
+      extraIntl = [
         { id:701, title:"Chevening Scholarships UK 2027", type:"Beasiswa", scope:"Luar Negeri",
           desc:"Beasiswa penuh S2 di Inggris dari pemerintah UK. Leadership & networking global.",
           organizer:"UK Foreign Office / Chevening", location:"United Kingdom",
@@ -551,21 +945,27 @@
           if (Array.isArray(data) && data.length) { local = data; break; }
         } catch (e) {}
       }
+      curatedBase = local;
 
-      // LIVE JOB APIs (no key) — Remotive + Jobicy
+      // LIVE JOB APIs — Remotive + Jobicy (publik, tanpa API key)
       let liveJobs = [];
+      let remotiveN = 0, jobicyN = 0;
+
       try {
-        const res = await fetch('https://remotive.com/api/remote-jobs?limit=18', { cache: 'no-store' });
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 12000);
+        const res = await fetch('https://remotive.com/api/remote-jobs?limit=20', { cache: 'no-store', signal: ctrl.signal });
+        clearTimeout(t);
         if (res.ok) {
           const data = await res.json();
-          (data.jobs || []).slice(0, 14).forEach((j, idx) => {
+          (data.jobs || []).slice(0, 16).forEach((j, idx) => {
             const tags = (j.tags || []).slice(0, 5);
             const deadline = new Date(); deadline.setDate(deadline.getDate() + 20 + (idx % 9));
             liveJobs.push({
-              id: 90000 + (j.id % 9000),
+              id: 90000 + (Number(j.id) % 9000 || idx),
               title: j.title || 'Remote Job',
               type: 'Lowongan',
-              scope: (j.job_type || 'remote').replace('_', '-'),
+              scope: String(j.job_type || 'remote').replace(/_/g, '-'),
               desc: String(j.description || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200) + '…',
               organizer: j.company_name || 'Company',
               location: (j.candidate_required_location || 'Worldwide') + ' · Remote',
@@ -575,18 +975,22 @@
               hadiah: j.salary || 'Lihat di sumber',
               mood: ['eksplor', 'ambisius'],
               source: 'Remotive', sourceUrl: j.url || 'https://remotive.com',
-              skills: tags, rawCategory: j.category || ''
+              skills: tags, rawCategory: j.category || '', live: true
             });
           });
-          console.log('[SURLINK] Remotive jobs:', liveJobs.length);
+          remotiveN = liveJobs.length;
         }
       } catch (e) { console.warn('Remotive', e.message); }
 
       try {
-        const res = await fetch('https://jobicy.com/api/v2/remote-jobs?count=10', { cache: 'no-store' });
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 12000);
+        const res = await fetch('https://jobicy.com/api/v2/remote-jobs?count=12', { cache: 'no-store', signal: ctrl.signal });
+        clearTimeout(t);
         if (res.ok) {
           const data = await res.json();
-          (data.jobs || []).slice(0, 8).forEach((j, idx) => {
+          const before = liveJobs.length;
+          (data.jobs || []).slice(0, 10).forEach((j, idx) => {
             const industry = Array.isArray(j.jobIndustry) ? j.jobIndustry : [];
             const tags = industry.map(String).slice(0, 4);
             const deadline = new Date(); deadline.setDate(deadline.getDate() + 18 + (idx % 7));
@@ -603,11 +1007,11 @@
               tags: ['Lowongan', 'Remote'].concat(tags),
               hadiah: 'Lihat di sumber',
               mood: ['eksplor'],
-              source: 'Jobicy', sourceUrl: j.url || 'https://jobicy.com',
-              skills: tags, rawCategory: tags[0] || ''
+              source: 'Jobicy', sourceUrl: j.url || (j.url || 'https://jobicy.com'),
+              skills: tags, rawCategory: tags[0] || '', live: true
             });
           });
-          console.log('[SURLINK] Jobicy added');
+          jobicyN = liveJobs.length - before;
         }
       } catch (e) { console.warn('Jobicy', e.message); }
 
@@ -618,25 +1022,56 @@
         if (seen.has(k)) continue;
         seen.add(k); unique.push(j);
       }
-      opportunities = local.concat(EXTRA_INTL).concat(unique);
-      console.log('[SURLINK] Total:', opportunities.length);
+      opportunities = curatedBase.concat(extraIntl).concat(unique);
+      liveStatus = {
+        remotive: remotiveN,
+        jobicy: jobicyN,
+        lastAt: Date.now(),
+        ok: unique.length > 0,
+        loading: false
+      };
+      if (loadEl) loadEl.classList.remove("show");
+      if (btn) btn.disabled = false;
+      updateLiveBar();
       render();
-      if (unique.length) addNotif('Loaded ' + unique.length + ' lowongan remote live (Remotive & Jobicy).');
+      if (unique.length) {
+        addNotif((isRefresh ? 'Diperbarui: ' : 'Dimuat: ') + unique.length + ' lowongan remote live (Remotive ' + remotiveN + ', Jobicy ' + jobicyN + ').');
+        if (isRefresh) toast(unique.length + ' lowongan live diperbarui');
+      } else if (isRefresh) {
+        toast('Sumber live sementara tidak terjangkau — data kurasi tetap tersedia');
+      }
     }
 
-    // ========== STATE ==========
-    let currentUser = JSON.parse(localStorage.getItem("surlink_user") || "null");
-    let savedIds = JSON.parse(localStorage.getItem("surlink_saved") || "[]");
-    let compareIds = JSON.parse(localStorage.getItem("surlink_compare") || "[]");
-    let appliedIds = JSON.parse(localStorage.getItem("surlink_applied") || "[]");
-    let checklist = JSON.parse(localStorage.getItem("surlink_checklist") || "{}");
-    let notifs = JSON.parse(localStorage.getItem("surlink_notifs") || "[]");
-    let currentFilter = "all", currentSub = "all", currentMood = "all", searchQ = "";
-    let profile = JSON.parse(localStorage.getItem("surlink_profile") || '{"major":"","semester":"","interests":[]}');
+    function updateLiveBar() {
+      const dot = document.getElementById("liveDot");
+      const meta = document.getElementById("liveMeta");
+      const chips = document.getElementById("sourceChips");
+      if (!dot || !meta) return;
+      if (liveStatus.loading) {
+        dot.className = "live-dot warn";
+        meta.textContent = "Mengambil data real-time…";
+        return;
+      }
+      const totalLive = (liveStatus.remotive || 0) + (liveStatus.jobicy || 0);
+      if (totalLive > 0) {
+        dot.className = "live-dot";
+        const t = liveStatus.lastAt ? new Date(liveStatus.lastAt).toLocaleTimeString("id", { hour: "2-digit", minute: "2-digit" }) : "—";
+        meta.innerHTML = '<span class="trust-chip">✓ Sumber publik terpercaya</span> · ' + totalLive + ' lowongan live · diperbarui ' + t;
+      } else {
+        dot.className = "live-dot off";
+        meta.textContent = "Mode offline/kurasi — data lokal UBB tetap tampil. Coba Segarkan.";
+      }
+      if (chips) {
+        chips.innerHTML =
+          '<span class="source-chip">Kurasi UBB</span>' +
+          (liveStatus.remotive ? '<span class="source-chip live">Remotive ' + liveStatus.remotive + '</span>' : '') +
+          (liveStatus.jobicy ? '<span class="source-chip live">Jobicy ' + liveStatus.jobicy + '</span>' : '');
+      }
+    }
 
-    const FREE_SAVE_LIMIT = 5;
-    const FREE_COMPARE_LIMIT = 2;
-    const PREMIUM_COMPARE_LIMIT = 5;
+    function refreshLiveData() {
+      loadOpportunities(true);
+    }
 
     // ========== HELPERS ==========
     function isPremium() { return currentUser && currentUser.premium; }
@@ -796,26 +1231,34 @@
     }
     function onSearch() { searchQ = document.getElementById("searchInput").value.toLowerCase(); render(); }
 
+    function toggleQuick(key, btn) {
+      quickFlags[key] = !quickFlags[key];
+      if (btn) btn.classList.toggle("active", quickFlags[key]);
+      render();
+    }
+
     function getFiltered() {
       return opportunities.filter(o => {
-        if (daysUntil(o.deadline) < -3) return false; // hide long expired
+        if (daysUntil(o.deadline) < -3) return false;
         if (currentFilter !== "all" && o.type !== currentFilter) return false;
         if (currentSub !== "all" && o.scope !== currentSub) return false;
         if (currentMood === "lokal" && !o.local) return false;
         if (currentMood === "ambisius" && !(o.mood || []).includes("ambisius")) return false;
         if (currentMood === "eksplor" && !(o.mood || []).includes("eksplor")) return false;
         if (currentMood === "santai" && !(o.mood || []).includes("santai")) return false;
+        if (quickFlags.verified && !(o.verify === "kampus" || o.verify === "partner")) return false;
+        if (quickFlags.live && !(o.live || (o.source && o.source !== "Kurasi"))) return false;
+        if (quickFlags.localOnly && !o.local) return false;
+        if (quickFlags.urgent) {
+          const d = daysUntil(o.deadline);
+          if (d < 0 || d > 7) return false;
+        }
         if (searchQ) {
-          const hay = (o.title + o.desc + o.organizer + o.tags.join(" ")).toLowerCase();
+          const hay = (o.title + o.desc + o.organizer + (o.tags || []).join(" ")).toLowerCase();
           if (!hay.includes(searchQ)) return false;
         }
-        if (profile.interests.length && currentFilter === "all" && !searchQ) {
-          // soft preference only when no hard filter
-        }
-        // Premium-only listings: freemium users still see but with lock on apply detail
         return true;
       }).sort((a, b) => {
-        // premium users see premium listings first slightly; otherwise by deadline
         const da = daysUntil(a.deadline), db = daysUntil(b.deadline);
         if (da < 0 && db >= 0) return 1;
         if (db < 0 && da >= 0) return -1;
@@ -958,6 +1401,7 @@
           ${o.sourceUrl ? '<p class="source-note">Data live dari <a href="'+o.sourceUrl+'" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600">'+(o.source||'sumber')+'</a> — verifikasi di situs resmi sebelum mendaftar. Attribution required by API terms.</p>' : ''}
         </div>` : ''}
         ${o.sourceUrl && o.type !== 'Lowongan' ? `<p class="source-note">Info: <a href="${o.sourceUrl}" target="_blank" rel="noopener" style="color:var(--primary)">${o.sourceUrl}</a></p>` : ''}
+        ${o.live || (o.source && o.source !== 'Kurasi') ? `<p class="source-note" style="margin-bottom:.6rem"><span class="trust-chip">LIVE · ${o.source || 'API'}</span> Selalu verifikasi di situs resmi sebelum mendaftar.</p>` : ''}
         ${isPremium() ? `
         <div style="background:var(--primary-soft);border-radius:10px;padding:.9rem;margin-bottom:1rem">
           <strong style="font-size:.85rem">📋 Checklist Persiapan Daftar</strong>
@@ -972,14 +1416,25 @@
           <p style="font-size:.82rem;margin-bottom:.4rem">🔒 Checklist persiapan & reminder lanjutan tersedia di Premium</p>
           <button class="btn btn-premium" onclick="openPremium()">Lihat Premium</button>
         </div>`}
+        <div style="margin-bottom:.8rem">
+          <label style="font-size:.75rem;font-weight:600;color:var(--text-muted)">Catatan pribadi (tersimpan di perangkat)</label>
+          <input class="note-input" id="noteInput${id}" placeholder="Mis. status apply, link form, tip..." value="${(saveNotes[id] || '').replace(/"/g, '&quot;')}" onchange="saveNote(${id}, this.value)" />
+        </div>
         <div class="modal-actions">
           <button class="btn btn-primary" onclick="toggleSave(${id});openDetail(${id})">${saved ? "★ Tersimpan" : "☆ Simpan"}</button>
           <button class="btn btn-outline" onclick="toggleCompare(${id});openDetail(${id})">${inCompare ? "✓ Di bandingkan" : "⚖️ Bandingkan"}</button>
           <button class="btn ${applied ? "btn-outline" : "btn-primary"}" onclick="markApplied(${id})">${applied ? "✓ Sudah daftar" : "Tandai sudah daftar"}</button>
+          ${o.sourceUrl ? `<a class="btn btn-outline" href="${o.sourceUrl}" target="_blank" rel="noopener">↗ Buka sumber</a>` : ''}
           <button class="btn btn-outline" onclick="shareOpp(${id})">🔗 Bagikan</button>
         </div>
       `;
       document.getElementById("detailModal").classList.add("show");
+    }
+
+    function saveNote(id, val) {
+      saveNotes[id] = val;
+      localStorage.setItem("surlink_notes", JSON.stringify(saveNotes));
+      toast("Catatan disimpan");
     }
 
     function toggleSave(id) {
@@ -1025,6 +1480,7 @@
         localStorage.setItem("surlink_applied", JSON.stringify(appliedIds));
         toast("Ditandai sudah daftar ✓");
         addNotif("Kamu menandai sudah mendaftar. Semoga berhasil!");
+        try { updateBadges(); renderGoals(); } catch (e) {}
       }
       openDetail(id);
     }
@@ -1150,6 +1606,170 @@
       localStorage.setItem("surlink_theme", next);
     }
 
+    // ========== LONG-TERM FEATURES ==========
+    const TIPS = [
+      { t: "Tips hari ini", b: "Atur preferensi jurusan & minat agar Match Score lebih akurat." },
+      { t: "Deadline H-7", b: "Biasakan cek timeline setiap Senin. Peluang dengan deadline ≤7 hari butuh aksi cepat." },
+      { t: "Bangun skill", b: "Lihat Skill Tracker: skill yang sering muncul di lowongan layak diprioritaskan di portofolio." },
+      { t: "Arsip untuk CV", b: "Ekspor daftar yang sudah didaftar tiap akhir semester — berguna untuk laporan & wawancara." },
+      { t: "Verifikasi dulu", b: "Selalu cek badge verifikasi (Kampus/Partner) sebelum mendaftar. Hindari scam." },
+      { t: "Lokal dulu", b: "Mode mood \"Lokal dulu\" menampilkan peluang Babel/UBB yang jarang muncul di platform nasional." },
+    ];
+
+    function togglePanel(id) {
+      const panels = ["timelinePanel", "skillPanel", "goalPanel", "exportPanel"];
+      panels.forEach(p => {
+        const el = document.getElementById(p);
+        if (!el) return;
+        if (p === id) el.classList.toggle("show");
+        else el.classList.remove("show");
+      });
+      if (id === "timelinePanel" && document.getElementById("timelinePanel").classList.contains("show")) renderTimeline();
+      if (id === "skillPanel" && document.getElementById("skillPanel").classList.contains("show")) renderSkills();
+      if (id === "goalPanel" && document.getElementById("goalPanel").classList.contains("show")) renderGoals();
+    }
+
+    function renderTimeline() {
+      const list = opportunities
+        .filter(o => { const d = daysUntil(o.deadline); return d >= 0 && d <= 30; })
+        .sort((a, b) => daysUntil(a.deadline) - daysUntil(b.deadline));
+      const el = document.getElementById("timelineList");
+      if (!list.length) {
+        el.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem">Tidak ada deadline dalam 30 hari ke depan.</p>';
+        return;
+      }
+      el.innerHTML = list.map(o => {
+        const d = daysUntil(o.deadline);
+        const cls = d <= 7 ? "urgent" : d <= 14 ? "soon" : "";
+        return `<div class="timeline-item" style="cursor:pointer" onclick="openDetail(${o.id})">
+          <div class="timeline-dot ${cls}"></div>
+          <div>
+            <div style="font-weight:600;font-size:.88rem">${o.title}</div>
+            <div style="font-size:.75rem;color:var(--text-muted)">${o.type} · ${deadlineText(o.deadline)} · ${o.organizer}</div>
+          </div>
+        </div>`;
+      }).join("");
+    }
+
+    function renderSkills() {
+      const counts = {};
+      opportunities.filter(o => daysUntil(o.deadline) >= -3).forEach(o => {
+        (o.tags || []).concat(o.skills || []).forEach(t => {
+          const k = String(t).trim();
+          if (!k) return;
+          counts[k] = (counts[k] || 0) + 1;
+        });
+      });
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const max = sorted[0] ? sorted[0][1] : 1;
+      const el = document.getElementById("skillBars");
+      if (!sorted.length) {
+        el.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem">Belum ada data skill dari peluang aktif.</p>';
+        return;
+      }
+      el.innerHTML = sorted.map(([name, n]) => {
+        const pct = Math.round((n / max) * 100);
+        return `<div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>${name}</span><span>${n} peluang</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join("");
+    }
+
+    function setWeeklyGoal(n) {
+      weeklyGoal = n;
+      localStorage.setItem("surlink_weekly_goal", String(n));
+      renderGoals();
+      toast("Target minggu ini: " + n + " daftar");
+    }
+
+    function renderGoals() {
+      const applied = appliedIds.length;
+      const pct = Math.min(100, Math.round((applied / weeklyGoal) * 100));
+      document.getElementById("goalProgress").textContent = applied + " / " + weeklyGoal;
+      document.getElementById("goalBar").style.width = pct + "%";
+      updateBadges();
+    }
+
+    function updateBadges() {
+      if (appliedIds.length >= 1) badges.first = true;
+      if (savedIds.length >= 5) badges.saver = true;
+      if (appliedIds.length >= weeklyGoal) badges.week = true;
+      if (opportunities.some(o => o.local && savedIds.includes(o.id))) badges.local = true;
+      if (profile.major && profile.interests && profile.interests.length >= 2) badges.profile = true;
+      localStorage.setItem("surlink_badges", JSON.stringify(badges));
+      const map = {
+        "badge-first": badges.first,
+        "badge-saver": badges.saver,
+        "badge-week": badges.week,
+        "badge-local": badges.local,
+        "badge-profile": badges.profile,
+      };
+      Object.keys(map).forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.toggle("earned", !!map[id]);
+        if (id === "badge-week" && map[id]) el.classList.add("gold");
+      });
+    }
+
+    function exportSaved(fmt) {
+      const items = savedIds.map(id => opportunities.find(o => o.id === id)).filter(Boolean);
+      if (!items.length) { toast("Belum ada peluang tersimpan"); return; }
+      if (fmt === "csv") {
+        const header = "Judul,Tipe,Deadline,Penyelenggara,Lokasi,Verifikasi\n";
+        const rows = items.map(o =>
+          `"${o.title.replace(/"/g, '""')}","${o.type}","${o.deadline}","${(o.organizer || "").replace(/"/g, '""')}","${(o.location || "").replace(/"/g, '""')}","${o.verify || ""}"`
+        ).join("\n");
+        downloadBlob(header + rows, "surlink-tersimpan.csv", "text/csv");
+      } else {
+        const text = "SURLINK — Daftar Peluang Tersimpan\n" +
+          "Diekspor: " + new Date().toLocaleString("id") + "\n\n" +
+          items.map((o, i) => `${i + 1}. [${o.type}] ${o.title}\n   Deadline: ${o.deadline} (${deadlineText(o.deadline)})\n   ${o.organizer} · ${o.location}\n`).join("\n");
+        downloadBlob(text, "surlink-tersimpan.txt", "text/plain");
+      }
+      toast("File diunduh ✓");
+    }
+
+    function exportApplied() {
+      const items = appliedIds.map(id => opportunities.find(o => o.id === id)).filter(Boolean);
+      if (!items.length) { toast("Belum ada yang ditandai sudah daftar"); return; }
+      const text = "SURLINK — Peluang yang Sudah Didaftar\n" +
+        "Diekspor: " + new Date().toLocaleString("id") + "\n\n" +
+        items.map((o, i) => `${i + 1}. [${o.type}] ${o.title}\n   Deadline: ${o.deadline}\n   ${o.organizer}\n`).join("\n");
+      downloadBlob(text, "surlink-sudah-daftar.txt", "text/plain");
+      toast("File diunduh ✓");
+    }
+
+    function copySavedClipboard() {
+      const items = savedIds.map(id => opportunities.find(o => o.id === id)).filter(Boolean);
+      if (!items.length) { toast("Belum ada peluang tersimpan"); return; }
+      const text = items.map(o => `• ${o.title} (${o.type}) — deadline ${o.deadline}`).join("\n");
+      navigator.clipboard.writeText(text).then(() => toast("Disalin ke clipboard")).catch(() => toast("Gagal menyalin"));
+    }
+
+    function downloadBlob(content, filename, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function showDailyTip() {
+      const day = Math.floor(Date.now() / 86400000) % TIPS.length;
+      const tip = TIPS[day];
+      const t = document.getElementById("tipTitle");
+      const b = document.getElementById("tipBody");
+      if (t) t.textContent = tip.t;
+      if (b) b.textContent = tip.b;
+    }
+
+    function openHelp() {
+      const msg = "SURLINK membantu mahasiswa UBB menemukan peluang terverifikasi.\n\n• Atur profil & minat untuk Match Score\n• Timeline: prioritaskan deadline dekat\n• Skill Tracker: skill yang sering diminta\n• Target + badge: motivasi daftar rutin\n• Ekspor: arsip untuk CV & laporan\n\nData tersimpan di browser (localStorage).";
+      alert(msg);
+    }
+
     // ========== INIT ==========
     document.getElementById("detailModal").addEventListener("click", e => { if (e.target.id === "detailModal") closeModal("detailModal"); });
     document.getElementById("authModal").addEventListener("click", e => { if (e.target.id === "authModal") closeModal("authModal"); });
@@ -1158,7 +1778,15 @@
     if (localStorage.getItem("surlink_theme") === "dark") document.documentElement.setAttribute("data-theme", "dark");
     updateAuthUI();
     initInterests();
-    loadOpportunities();
+    showDailyTip();
+    updateLiveBar();
+    loadOpportunities(false);
+    // refresh badges after data loads
+    setTimeout(() => { try { updateBadges(); renderGoals(); } catch (e) {} }, 1500);
+    // Auto-refresh live jobs every 30 minutes (silent)
+    setInterval(() => { try { loadOpportunities(true); } catch (e) {} }, 30 * 60 * 1000);
   </script>
+
+  <button class="floating-help" onclick="openHelp()" title="Bantuan SURLINK">?</button>
 </body>
 </html>
